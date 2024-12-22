@@ -129,7 +129,7 @@ main {
 }
 aside {
   position: fixed;
-  margin-top: 10%;
+  margin-top: 13%;
   background-color: #cbcbcb;
   width: fit-content;
   height: 150px;
@@ -147,12 +147,13 @@ aside {
     background-color: #ffffff;
     border-radius: 5px;
   }
+ 
 }
 
 .resent-post {
- 
+
   margin-left: 27%;
-  margin-top: 10%;
+  margin-top: 13%;
   color: #535151;
 }
 
@@ -206,7 +207,7 @@ button:hover {
     border-radius: 4px;
     padding: 15px;
     margin: 15px 0;
-    background: rgb(137, 144, 144);
+    background: rgb(192, 196, 196);
     .poster {
       padding-bottom: 10px;
       display: flex;

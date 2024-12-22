@@ -16,17 +16,17 @@
         </a>
         <div class="register">
             <div>
-                <a class="sign-in" href="sign-in.html">Sign-In</a>
-                <a class="sign-up" href="sign-up.html">Sign-Up</a>
+                <a class="sign-in" href="/login">Sign-In</a>
+                <a class="sign-up" href="/register">Sign-Up</a>
             </div>
             <div class="profile-container">
                 <div class="profile">?</div>
                 <div class="account-settings">
                     <span></span>
-                    <a href="settings.html">
+                    <a href="/settings">
                         <h5>Account Settings</h5>
                     </a>
-                    <a href="log-out">
+                    <a href="logout">
                         <h5>Log Out</h5>
                     </a>
 
@@ -38,17 +38,20 @@
 
     <main>
         <aside>
-            <a href="post-creation">
+            <a href="/createPost">
                 <h5>Create Post</h5>
             </a>
-            <a href="#">
+            <a href="/categorizePost">
                 <h5>Categories</h5>
             </a>
-            <a href="filter">
+            <a href="/filterPost">
                 <h5>Filter</h5>
-                
             </a>
+
         </aside>
+        <!-- {{ .PosteCreation }}
+        {{ .Categories }}
+        {{ .Filter }}-->
         <h3 class="resent-post">Resent Posts</h3>
         <div class="posts">
             <div class="post">
@@ -71,7 +74,7 @@
 
                 </div>
             </div>
-            <div class="post" >
+            <div class="post">
                 <div class="poster">
                     <div class="profile"></div>
                     <h3>{{ .UserName}}</h3>
@@ -79,7 +82,7 @@
                 <p>{{ .Category }}</p>
                 <h3> {{ .PostTitle }} </h3>
                 <p>{{ .PostContent }}</p>
-            
+
                 <div class="comments">
                     <h4>Comments</h4>
                     <form class="comment-form">
@@ -88,7 +91,7 @@
                         <button type="submit" class="dislike-btn">Dislike</button>
                         <button type="submit" class="comment-btn">Comment</button>
                     </form>
-            
+
                 </div>
             </div>
             <!-- Additional posts can be added here -->
