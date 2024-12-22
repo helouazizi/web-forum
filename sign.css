@@ -1,0 +1,250 @@
+/* sign.css */
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #35424a;
+  color: #ffffff;
+  padding: 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin-left: 20px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.user-profile {
+  margin-right: 20px;
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column; /* Stack image and name vertically */
+  align-items: center; /* Center align items */
+  position: relative; /* Position relative for dropdown */
+}
+
+.profile-pic {
+  width: 40px; /* Adjust size for a smaller profile picture */
+  height: 40px; /* Adjust size for a smaller profile picture */
+  border-radius: 50%; /* Circular profile picture */
+  background-color: #35424a; /* Background color for the profile picture */
+  object-fit: cover; /* Ensure the image covers the circle */
+  border: 2px solid #ffffff; /* White border around the profile picture */
+}
+
+.user-name {
+  margin-top: 5px; /* Space between image and name */
+  color: #c1c9cd; /* Dark color for the name */
+  font-weight: bold; /* Bold text for the name */
+  font-size: 0.8em; /* Slightly smaller font size */
+}
+
+.dropdown {
+  position: relative; /* Position relative for dropdown content */
+  margin-left: 5px; /* Space between profile and dropdown */
+}
+
+.dropdown-button {
+  background: none; /* No background */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  padding: 0; /* Remove padding for a more compact look */
+}
+
+.settings-icon {
+  width: 20px; /* Size of the settings icon */
+  height: 20px; /* Size of the settings icon */
+}
+
+.dropdown-content {
+  display: none; /* Hidden by default */
+  position: absolute; /* Position absolute to dropdown */
+  background-color: #ffffff; /* White background for dropdown */
+  min-width: 150px; /* Minimum width for dropdown */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Shadow for dropdown */
+  z-index: 1; /* Ensure dropdown is above other elements */
+  border-radius: 5px; /* Rounded corners for dropdown */
+  left: -130px;
+  top: 70px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block; /* Show dropdown on hover */
+}
+
+.dropdown-content a {
+  color: #35424a; /* Color for dropdown links */
+  padding: 10px; /* Padding for links */
+  text-decoration: none; /* No underline */
+  display: block; /* Block display for links */
+}
+
+.dropdown-content a:hover {
+  background-color: #f4f4f4; /* Light background on hover */
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px); /* Adjust height to account for header */
+  text-align: center; /* Center text */
+}
+
+h2 {
+  margin-bottom: 10px;
+  color: #35424a;
+  text-align: center; /* Center the heading */
+}
+
+.credential-prompt {
+  margin-bottom: 20px; /* Space between messages */
+  color: #666666; /* Lighter color for the message */
+  font-size: 1.1em; /* Slightly larger font size for emphasis */
+}
+
+.form-container {
+  width: 350px; /* Width of the form container */
+  margin: 50px auto; /* Center the form container */
+  padding: 20px; /* Padding for better spacing */
+  background: #ffffff; /* White background for the form */
+  border-radius: 10px; /* Rounded corners for the form */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+label {
+  display: block; /* Block display for labels */
+  margin-bottom: 5px; /* Space between label and input */
+  font-weight: bold; /* Bold text for labels */
+  color: #35424a; /* Dark color for labels */
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 95%; /* Full width for input fields */
+  padding: 10px; /* Padding inside input fields */
+  margin-bottom: 20px; /* Space between input fields */
+  border: 1px solid #ccc; /* Light border for input fields */
+  border-radius: 5px; /* Rounded corners for input fields */
+  font-size: 1em; /* Font size for input text */
+  color: #35424a; /* Dark color for input text */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #35424a; /* Dark border on focus */
+  outline: none; /* Remove default outline */
+}
+
+button {
+  width: 100%; /* Full width for buttons */
+  padding: 10px; /* Padding inside buttons */
+  background-color: #35424a; /* Dark background for buttons */
+  color: #ffffff; /* White text color for buttons */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners for buttons */
+  font-size: 1em; /* Font size for button text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+button:hover {
+  background-color: #2c3e50; /* Darker shade on hover */
+}
+
+.toggle {
+  margin-top: 20px; /* Increased margin for better spacing */
+text-align: center;
+}
+
+.toggle p {
+  margin: 0; /* Remove default margin */
+  font-size: 0.9em; /* Slightly smaller font size for toggle text */
+  color: #666666; /* Lighter color for toggle text */
+}
+
+.toggle a {
+  color: #35424a; /* Dark color for links */
+  text-decoration: none; /* No underline */
+}
+
+.toggle a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.footer {
+  margin-top: 5%;
+  background-color: #35424a; /* Dark background for the footer */
+  color: #ffffff; /* White text color */
+  padding: 20px 0; /* Padding for top and bottom */
+  text-align: center; /* Center text */
+}
+
+.footer-container {
+  max-width: 1200px; /* Max width for the footer content */
+  margin: 5px auto; /* Center the footer content */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center align items */
+}
+
+.footer p {
+  margin: 0; /* Remove default margin */
+  font-size: 0.9em; /* Slightly smaller font size */
+}
+
+.footer nav ul {
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  margin: 10px 0 0; /* Margin for spacing */
+  display: flex; /* Use flexbox for horizontal layout */
+}
+
+.footer nav ul li {
+  margin: 0 15px; /* Space between links */
+}
+
+.footer nav ul li a {
+  color: #ffffff; /* White text for links */
+  text-decoration: none; /* No underline */
+}
+
+.footer nav ul li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
