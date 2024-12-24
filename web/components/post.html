@@ -1,0 +1,25 @@
+<div class="post">
+    <div class="poster">
+        <div class="profile"></div>
+        <h3>{{ .UserName}}</h3>
+    </div>
+    <p>{{ .Category }}</p>
+    <h3> {{ .PostTitle }} </h3>
+    <p>{{ .PostContent }}</p>
+
+    <div class="comments">
+        <h4>Comments</h4>
+        <form class="comment-form">
+            <input type="text" placeholder="Add a comment..." required="">
+            <div class="buttons">
+                <div class="like-dislike">
+                    <button type="submit" class="like-btn">Like</button>
+                    <button type="submit" class="dislike-btn">Dislike</button>
+                </div>
+                <button type="submit" class="comment-btn">Comment</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
