@@ -1,7 +1,16 @@
+// cmd/main.go
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"forum/internal/utils"
+)
 
-func Test() {
-	fmt.Println("test")
+func main() {
+	// Get the current working directory
+	filepath, err := utils.GetFolderPath("..","testiiii")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(filepath)
 }

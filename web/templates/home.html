@@ -1,12 +1,23 @@
 <!-- web/templates/home.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Forum</title>
 </head>
+
 <body>
-    
+    {{ .Header }}
+    <main>
+        {{ .Aside }}
+        {{ .Title }}
+        {{range .Posts }}
+        {{ .Post}}
+        {{ end }}
+    </main>
+    {{ .Footer }}
 </body>
+
 </html>
