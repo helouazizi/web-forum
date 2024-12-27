@@ -15,3 +15,9 @@ the request for filtering posts is </filterPost>
 the request for deleting post is </deletePost>
 ***********
 the request for categorizing post is </categorizePost>
+***********
+the request for deleting post is </deletepost>
+***********
+the requestfor my posts is </myposts>
+***********
+the request for liked posts is </likedposts>

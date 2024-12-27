@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Forum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./style.css"> <!-- Link to external CSS for styling -->
 </head>
 
@@ -24,11 +25,8 @@
                 <div class="account-settings">
                     <span></span>
                     <a href="/settings">
-                        <h5>Account Settings</h5>
-                    </a>
-                    <a href="logout">
-                        <h5>Log Out</h5>
-                    </a>
+                        <i class="fas fa-cog icon"></i>Account Settings</a>
+                    <a href="logout"> <i class="fas fa-sign-out-alt icon"></i>Log Out</a>
 
                 </div>
             </div>
@@ -38,27 +36,26 @@
 
     <main>
         <aside>
-            <a href="/createPost">
-                <h5>Create Post</h5>
-            </a>
-            <a href="/categorizePost">
-                <h5>Categories</h5>
-            </a>
-            <a href="/filterPost">
-                <h5>Filter</h5>
-            </a>
-
+            <a href="home.html"><i class="fas fa-home"></i> Home</a>
+            <a href="/createPost"><i class="fas fa-plus"></i> Create Post</a>
+            <a href="/myposts"><i class="fas fa-user"></i> My Posts</a>
+            <a href="/likedposts"><i class="fas fa-heart"></i> Liked Posts</a>
+            <a href="/categorizePost"><i class="fas fa-tags"></i> Categories</a>
+            <a href="/filterPost"><i class="fas fa-filter"></i> Filter</a>
         </aside>
-        <!-- {{ .PosteCreation }}
-        {{ .Categories }}
-        {{ .Filter }}-->
         <section class="content">
             <h3 class="resent-post">Resent Posts</h3>
             <div class="posts">
                 <div class="post">
                     <div class="poster">
-                        <div class="profile"></div>
-                        <h3>{{ .UserName}}</h3>
+                        <div>
+                            <div class="profile"></div>
+                            <h3>{{ .UserName}}</h3>
+                        </div>
+
+                        <div>
+                            <a class="deletepost" href="deletepost"><i class="fas fa-trash"></i> Delete</a>
+                        </div>
                     </div>
                     <p>{{ .Category }}</p>
                     <h3> {{ .PostTitle }} </h3>
@@ -70,10 +67,13 @@
                             <input type="text" placeholder="Add a comment..." required="">
                             <div class="buttons">
                                 <div class="like-dislike">
-                                    <button type="submit" class="like-btn">Like</button>
-                                    <button type="submit" class="dislike-btn">Dislike</button>
+                                    <button type="submit" class="like-btn"><i class="fas fa-thumbs-up"></i>
+                                        Like</button>
+                                    <button type="submit" class="dislike-btn"><i class="fas fa-thumbs-down"></i>
+                                        Dislike</button>
                                 </div>
-                                <button type="submit" class="comment-btn">Comment</button>
+                                <button type="submit" class="comment-btn"><i class="fas fa-comment"></i>
+                                    Comment</button>
                             </div>
 
                         </form>
@@ -82,8 +82,14 @@
                 </div>
                 <div class="post">
                     <div class="poster">
-                        <div class="profile"></div>
-                        <h3>{{ .UserName}}</h3>
+                        <div>
+                            <div class="profile"></div>
+                            <h3>{{ .UserName}}</h3>
+                        </div>
+
+                        <div>
+                            <a class="deletepost" href="deletepost"><i class="fas fa-trash"></i> Delete</a>
+                        </div>
                     </div>
                     <p>{{ .Category }}</p>
                     <h3> {{ .PostTitle }} </h3>
@@ -95,10 +101,13 @@
                             <input type="text" placeholder="Add a comment..." required="">
                             <div class="buttons">
                                 <div class="like-dislike">
-                                    <button type="submit" class="like-btn">Like</button>
-                                    <button type="submit" class="dislike-btn">Dislike</button>
+                                    <button type="submit" class="like-btn"><i class="fas fa-thumbs-up"></i>
+                                        Like</button>
+                                    <button type="submit" class="dislike-btn"><i class="fas fa-thumbs-down"></i>
+                                        Dislike</button>
                                 </div>
-                                <button type="submit" class="comment-btn">Comment</button>
+                                <button type="submit" class="comment-btn"><i class="fas fa-comment"></i>
+                                    Comment</button>
                             </div>
 
                         </form>

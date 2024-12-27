@@ -2,33 +2,91 @@
 package handlers
 
 import (
-	"fmt"
-	"forum/internal/models"
 	"forum/internal/utils"
 	"html/template"
 	"net/http"
 )
 
-func init() {
-	test := &models.HomePage{}
-	// lets get the components path to parse them
-	componentsPath, err := utils.GetFolderPath("..", "components")
-	if err != nil {
-		fmt.Printf(" Error getting components path: %v\n", err)
-	}
-	// lets parse all components as globale using templ.parseglobal
-	// we will use this to render the components in the templates
-	ComponentsTemplate, err := template.ParseGlob(componentsPath + "*.html")
-	fmt.Println(test,ComponentsTemplate)
+type Pages struct {
+	All_Templates *template.Template
+}
+type Form struct {
+	Title  string
+	Button string
 }
 
-// lets craete a function to handle the root request
-// for our application
+var pages Pages
+
+func init() {
+	var err error
+	path, err := utils.GetFolderPath("..", "templates")
+	if err != nil {
+		panic(err)
+	}
+	pages.All_Templates, err = template.ParseGlob(path + "/*.html")
+	if err != nil {
+		panic(err)
+	}
+
+}
+
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.Error(w, "Not Found", http.StatusNotFound)
+		w.WriteHeader(http.StatusNotFound)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Page not found")
+		return
 	}
 	if r.Method != "GET" {
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
 	}
+
+	pages.All_Templates.ExecuteTemplate(w, "home.html", nil)
+
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "method not allowed")
+		return
+	}
+	data := Form{
+		Title:  "Login",
+		Button: "Login",
+	}
+
+	pages.All_Templates.ExecuteTemplate(w, "login.html", data)
+}
+func Register(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "method not allowed")
+		return
+	}
+	data := Form{
+		Title:  "Create Account",
+		Button: "Create Account",
+	}
+
+	pages.All_Templates.ExecuteTemplate(w, "login.html", data)
+}
+
+func CreatePost(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+
+	pages.All_Templates.ExecuteTemplate(w, "createpost.html", nil)
+}
+
+func Serve_Static(w http.ResponseWriter, r *http.Request) {
+	path, _ := utils.GetFolderPath("..", "static")
+	fs := http.FileServer(http.Dir(path))
+	http.StripPrefix("/static/", fs).ServeHTTP(w, r)
 }

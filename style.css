@@ -26,7 +26,7 @@ profile included
 
 header {
   position: fixed;
-  height: 100px;
+  height: 80px;
   width: 100%;
   background: #35424a;
   color: #ffffff;
@@ -129,7 +129,7 @@ main {
   width: 100%;
   margin: auto;
   padding: 0px 5%;
-  padding-top: 100px;
+  padding-top: 80px;
   background: #ffffff;
   display: flex;
   justify-content: space-between;
@@ -141,7 +141,16 @@ this aside for the links in the left hand
 aside {
   width: 20%;
   height: 500px;
+  padding-top: 50px;
   border-right: 1px solid;
+  a {
+    display: block;
+    padding: 10px 0px;
+  }
+  a:hover {
+    border-bottom: #000 1px solid;
+    color: #45a049;
+  }
 }
 /*
 this style for the content in the main container
@@ -151,6 +160,7 @@ spitilaty for posts
   display: none; /* Hide scrollbar in Webkit browsers (e.g., Chrome, Safari) */
 }
 .content {
+  padding-top: 50px;
   width: 80%;
   height: 500px;
   background-color: #2f84ce00;
@@ -173,8 +183,19 @@ spitilaty for posts
         padding-bottom: 10px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
         border-bottom: 1px solid #ddd;
         margin-bottom: 5px;
+        div{
+          display: flex;
+          align-items: center;
+        }
+        .deletepost {
+         color: #000;
+        }
+        .deletepost:hover {
+          color: rgba(255, 0, 0, 0.548);
+        }
       }
       .buttons {
         display: flex;

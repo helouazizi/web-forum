@@ -3,14 +3,18 @@ package main
 
 import (
 	"fmt"
-	"forum/internal/utils"
+	"forum/internal/handlers"
+	"log"
+	"net/http"
 )
 
 func main() {
 	// Get the current working directory
-	filepath, err := utils.GetFolderPath("..","testiiii")
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(filepath)
+	http.HandleFunc("/", handlers.Home)
+	http.HandleFunc("/register", handlers.Register)
+	http.HandleFunc("/login", handlers.Login)
+	http.HandleFunc("/createpost", handlers.CreatePost)
+	http.HandleFunc("/static/", handlers.Serve_Static)
+	fmt.Println("server is running on port 8080 ... http://localhost:8080")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
