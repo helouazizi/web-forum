@@ -19,13 +19,18 @@ body {
   background-color: #f4f4f4;
 }
 
+/*
+this style for all elements in the header 
+profile included 
+*/
+
 header {
   position: fixed;
-
+  height: 100px;
   width: 100%;
   background: #35424a;
   color: #ffffff;
-  padding: 10px 5%;
+  padding: 0px 5%;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -121,50 +126,73 @@ header {
 
 /* Main Content Styles */
 main {
-  max-width: 100%;
+  width: 100%;
   margin: auto;
-  padding: 5%;
+  padding: 0px 5%;
+  padding-top: 100px;
   background: #ffffff;
-  border-radius: 8px;
-}
-aside {
-  position: fixed;
-  margin-top: 13%;
-  background-color: #cbcbcb;
-  width: fit-content;
-  height: 150px;
-  padding: 10px;
   display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  border-radius: 5px;
-  a {
-    color: #000;
-    padding: 5px;
-    border-bottom: #35424a 1px solid;
-  }
-  a:hover {
-    background-color: #ffffff;
-    border-radius: 5px;
-  }
- 
+  justify-content: space-between;
 }
 
-.resent-post {
-
-  margin-left: 27%;
-  margin-top: 13%;
-  color: #535151;
+/*
+this aside for the links in the left hand  
+*/
+aside {
+  width: 20%;
+  height: 500px;
+  border-right: 1px solid;
+}
+/*
+this style for the content in the main container
+spitilaty for posts 
+*/
+.content::-webkit-scrollbar {
+  display: none; /* Hide scrollbar in Webkit browsers (e.g., Chrome, Safari) */
+}
+.content {
+  width: 80%;
+  height: 500px;
+  background-color: #2f84ce00;
+  padding-left: inherit;
+  overflow: scroll;
+  .resent-post {
+    color: #535151;
+  }
+  .posts {
+    background-color: transparent;
+    padding: 0;
+    .post {
+      /*border: 1px solid #ddd;*/
+      width: 100%;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 15px 0;
+      background: rgb(192, 196, 196);
+      .poster {
+        padding-bottom: 10px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 5px;
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
 }
 
+/*
 section {
   background-color: rgb(178, 192, 192);
   margin-bottom: 20px;
   padding: inherit;
   /* margin-top: 17%;*/
-
+/*
   margin-left: 140px;
-}
+}*/
 
 form {
   margin-bottom: 20px;
@@ -196,30 +224,6 @@ button {
 
 button:hover {
   background: #45a049;
-}
-.posts {
-  background-color:transparent;
-  padding: 0;
-  margin-left: 27%;
-  .post {
-    /*border: 1px solid #ddd;*/
-    width: 100%;
-    border-radius: 4px;
-    padding: 15px;
-    margin: 15px 0;
-    background: rgb(192, 196, 196);
-    .poster {
-      padding-bottom: 10px;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      margin-bottom: 5px;
-    }
-    .buttons{
-      display: flex;
-      justify-content: space-between;
-    }
-  }
 }
 
 /* Post Styles */
