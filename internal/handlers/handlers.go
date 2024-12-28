@@ -101,6 +101,56 @@ func Sign_In(w http.ResponseWriter, r *http.Request) {
 	pages.All_Templates.ExecuteTemplate(w, "login.html", data)
 }
 
+func FilterPosts(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "filter.html", nil)
+}
+
+func MyPosts(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "profile.html", "My Posts")
+}
+func LikedPosts(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "profile.html", "NO liked posts")
+}
+func CategorizePosts(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "profile.html", "Category")
+}
+func Settings(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "profile.html", "settings")
+}
+func Logout(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "profile.html", "Logout")
+}
+
 func Serve_Static(w http.ResponseWriter, r *http.Request) {
 	path, _ := utils.GetFolderPath("..", "static")
 	fs := http.FileServer(http.Dir(path))
