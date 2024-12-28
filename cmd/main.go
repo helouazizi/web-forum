@@ -12,7 +12,9 @@ func main() {
 	// Get the current working directory
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/register", handlers.Register)
-	http.HandleFunc("/login", handlers.Login)
+	http.HandleFunc("/create_account", handlers.Create_Account)
+	http.HandleFunc("/sign_in", handlers.Sign_In)
+	//http.HandleFunc("/login", handlers.Login)
 	http.HandleFunc("/createpost", handlers.CreatePost)
 	http.HandleFunc("/static/", handlers.Serve_Static)
 	fmt.Println("server is running on port 8080 ... http://localhost:8080")

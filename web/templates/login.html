@@ -19,7 +19,7 @@
         </a>
         <div class="register">
             <div>
-                <a class="sign-in" href="/login">Sign-In</a>
+                <a class="sign-in" href="/sign_in">Sign-In</a>
                 <a class="sign-up" href="/register">Sign-Up</a>
             </div>
             <div class="profile-container">
@@ -57,11 +57,14 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required title="Enter your password"
                         placeholder="Your password">
-
-                    <button class="login-btn" type="submit">{{ .Button }}</button>
+                    {{ if eq .Title "Login" }}
+                    <button href="/" type="submit" class="login-btn">{{ .Button }}</button>
                     <div class="toggle">
                         <p>Don't have an account? <a href="/register">Sign Up</a></p>
                     </div>
+                    {{ else }}
+                    <button href="/" type="submit" class="login-btn">{{ .Button }}</button>
+                    {{ end }}
                 </form>
             </div>
             </div>

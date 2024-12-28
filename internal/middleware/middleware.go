@@ -1,4 +1,5 @@
-package main
+// internal/middleware/middleware.go
+package middleware
 
 import "fmt"
 

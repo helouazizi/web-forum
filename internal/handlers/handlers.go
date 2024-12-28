@@ -53,12 +53,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		pages.All_Templates.ExecuteTemplate(w, "error.html", "method not allowed")
 		return
 	}
-	data := Form{
-		Title:  "Login",
-		Button: "Login",
-	}
 
-	pages.All_Templates.ExecuteTemplate(w, "login.html", data)
+	pages.All_Templates.ExecuteTemplate(w, "home.html", nil)
 }
 func Register(w http.ResponseWriter, r *http.Request) {
 
@@ -83,6 +79,26 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	pages.All_Templates.ExecuteTemplate(w, "createpost.html", nil)
+}
+func Create_Account(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	pages.All_Templates.ExecuteTemplate(w, "home.html", nil)
+}
+func Sign_In(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		return
+	}
+	data := Form{
+		Title:  "Login",
+		Button: "Login",
+	}
+	pages.All_Templates.ExecuteTemplate(w, "login.html", data)
 }
 
 func Serve_Static(w http.ResponseWriter, r *http.Request) {

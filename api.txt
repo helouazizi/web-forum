@@ -4,6 +4,9 @@ the body should have 5% pading in all time
 ***********
 the requestfor registration is </register>
 ***********
+the request for creating account is </create_account>
+the request for sign-in is </sign_in>
+***********
 the request for login is </login>
 ***********
 the request for acount settings is </settings> 
@@ -15,8 +18,6 @@ the request for filtering posts is </filterPost>
 the request for deleting post is </deletePost>
 ***********
 the request for categorizing post is </categorizePost>
-***********
-the request for deleting post is </deletepost>
 ***********
 the requestfor my posts is </myposts>
 ***********
