@@ -5,6 +5,8 @@ import (
 	"forum/internal/utils"
 	"html/template"
 	"net/http"
+
+	"forum/internal/database"
 )
 
 type Pages struct {
@@ -58,10 +60,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 func Register(w http.ResponseWriter, r *http.Request) {
 
-	if r.Method != "GET" {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "method not allowed")
-		return
+	if r.Method == http.MethodPost {
+		email := r.FormValue("email")
+
+		password := r.FormValue("password")
+		_, err := database.Database.Exec("INSERT INTO users (username, password) VALUES (?, ?)", email,password)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			pages.All_Templates.ExecuteTemplate(w, "error.html", "Internal server error")
+			return
+		}
 	}
 	data := Form{
 		Title:  "Create Account",

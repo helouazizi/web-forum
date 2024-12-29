@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+
 	// Get the current working directory
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/register", handlers.Register)
