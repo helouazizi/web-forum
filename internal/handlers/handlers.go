@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
 	"text/template"
 
@@ -24,12 +23,9 @@ var pages Pages
 
 func init() {
 	var err error
-	path, err := utils.GetFolderPath("..", "templates")
-	fmt.Printf("path: %v\n", path)
-	if err != nil {
-		panic(err)
-	}
-	pages.All_Templates, err = template.ParseGlob("../forum/web/templates" + "/*.html")
+	//path, err := utils.GetFolderPath("..", "templates")
+
+	pages.All_Templates, err = template.ParseGlob("./web/templates/*.html")
 	if err != nil {
 		panic(err)
 	}
