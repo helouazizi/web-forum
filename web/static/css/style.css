@@ -135,7 +135,10 @@ main {
   background: #ffffff;
   display: flex;
   justify-content: space-between;
+<<<<<<< HEAD
   height: 100vh;
+=======
+>>>>>>> hassan
 }
 
 /*
@@ -143,7 +146,11 @@ this aside for the links in the left hand
 */
 aside {
   width: 20%;
+<<<<<<< HEAD
   height: 100%;
+=======
+  height: 500px;
+>>>>>>> hassan
   padding-top: 50px;
   border-right: 1px solid;
   a {
@@ -173,7 +180,11 @@ spitilaty for posts
 .content {
   padding-top: 50px;
   width: 80%;
+<<<<<<< HEAD
   height: 100%;
+=======
+  height: 500px;
+>>>>>>> hassan
   background-color: #595e6300;
   padding-left: inherit;
   overflow: scroll;
