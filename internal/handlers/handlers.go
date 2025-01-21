@@ -2,11 +2,15 @@
 package handlers
 
 import (
+<<<<<<< HEAD
 	"html/template"
+=======
+	"fmt"
+	"log"
+>>>>>>> f05865bf8652d85fe6467a0db1b304ff7db4c228
 	"net/http"
 	"os"
 
-	"forum/internal/database"
 	"forum/internal/utils"
 )
 
@@ -22,31 +26,43 @@ type User struct {
 	IsAuthenticated bool
 }
 
-var pages Pages
+var Pagess Pages
 
-func init() {
+func ParseTemplates() {
 	var err error
 	path, err := utils.GetFolderPath("..", "templates")
 	if err != nil {
 		panic(err)
 	}
+<<<<<<< HEAD
 	pages.All_Templates, err = template.ParseGlob(path + "/*.html")
+=======
+	Pagess.All_Templates, err = template.ParseGlob("./web/templates" + "/*.html")
+>>>>>>> f05865bf8652d85fe6467a0db1b304ff7db4c228
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
+<<<<<<< HEAD
+=======
+	Pagess.All_Templates, err = Pagess.All_Templates.ParseGlob("../forum/web/components" + "/*.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+>>>>>>> f05865bf8652d85fe6467a0db1b304ff7db4c228
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		w.WriteHeader(http.StatusNotFound)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Page not found")
+		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Page not found")
 		return
 	}
-	if r.Method != "GET" {
+	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
+		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed")
 		return
 	}
+<<<<<<< HEAD
 	user := User{
 		IsAuthenticated: false,
 	}
@@ -181,6 +197,9 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	pages.All_Templates.ExecuteTemplate(w, "profile.html", "Logout")
+=======
+	Pagess.All_Templates.ExecuteTemplate(w, "home.html", nil)
+>>>>>>> f05865bf8652d85fe6467a0db1b304ff7db4c228
 }
 
 func Serve_Static(w http.ResponseWriter, r *http.Request) {
