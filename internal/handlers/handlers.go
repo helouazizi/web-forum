@@ -33,7 +33,7 @@ func ParseTemplates() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Pagess.All_Templates, err = Pagess.All_Templates.ParseGlob("../forum/web/components" + "/*.html")
+	Pagess.All_Templates, err = Pagess.All_Templates.ParseGlob("./web/components" + "/*.html")
 	if err != nil {
 		log.Fatal(err)
 	}
