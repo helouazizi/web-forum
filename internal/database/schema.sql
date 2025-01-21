@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS  users (
 /* create posts table*/
 CREATE TABLE IF NOT EXISTS posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT ,
-    user_id INT ,
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    user_id INT ,
     title VARCHAR(255) NOT NULL ,
     content TEXT NOT NULL ,
     total_likes INT DEFAULT 0,
