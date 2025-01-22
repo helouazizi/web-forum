@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type Logger struct {
@@ -47,7 +48,12 @@ func init() {
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hello from server\n")
-	w.Write([]byte("you are succefully loged"))
+	w.Write([]byte("this is a public site\n"))
+}
+func secure_handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "hello from server\n")
+	w.Write([]byte("this privete site\n"))
+	w.Write([]byte("you are succefully loged\n"))
 }
 
 func LoginMidlleware(next http.Handler) http.Handler {
@@ -55,22 +61,33 @@ func LoginMidlleware(next http.Handler) http.Handler {
 		// lets log the request
 		log.Printf("%v recieved a request >>   Method: %s, URL: %s, Client IP: %s", r.Header.Get("Date"), r.Method, r.URL.Path, r.RemoteAddr)
 		log.Print("------------------------")
-
+		// now lets check for authorisation
+		authorisationHrader := r.Header.Get("Authorization")
+		if authorisationHrader == "" || !strings.HasPrefix(authorisationHrader, "aghyor ") || !validToken(authorisationHrader[7:]) {
+			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+			return
+		}
 		// now call the next hamdel in the chain
 		next.ServeHTTP(w, r)
 	})
+
+}
+
+func validToken(token string) bool {
+	return token == "boda"
 }
 
 func main() {
 	var loger Logger
 	defer loger.LogFile.Close()
 	// Create a new HTTP multiplexer (router)
-	mux := &Mine_ServMux{}
-	mux.Mine_Handlfunc("/", handler)
-	//http.HandleFunc("/", handler)
+	mux := http.DefaultServeMux
+	//mux.Mine_Handlfunc("/", handler) // or
+	mux.HandleFunc("/", handler)
+	mux.Handle("/secure", LoginMidlleware(http.HandlerFunc(secure_handler)))
 	fmt.Println("server is running on port 8080 ... http://localhost:8080")
 	// Start the server with the logging middleware
-	if err := http.ListenAndServe(":8080", LoginMidlleware(mux)); err != nil {
+	if err := http.ListenAndServe(":8080", mux); err != nil {
 		log.Fatal(err)
 	}
 }
