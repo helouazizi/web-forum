@@ -2,7 +2,6 @@ package config
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -24,9 +23,7 @@ func LoadConfig() *Config {
 	// Load environment variables from file
 	err := loadEnvFile("./pkg/config/variables.env")
 	if err != nil {
-		fmt.Println(err, "toooooooooo")
 		log.Fatal(err)
-
 	}
 
 	port, err := strconv.Atoi(getEnv("PORT", "8080"))
@@ -75,7 +72,6 @@ func loadEnvFile(filepath string) error {
 	}
 
 	if err := scanner.Err(); err != nil {
-		//log.Fatalf("Error reading .env file: %v", err)
 		return err
 	}
 	return nil
