@@ -3,12 +3,11 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
-
 	"forum/internal/auth"
 	"forum/internal/database"
 	"forum/internal/handlers"
+	"log"
+	"net/http"
 )
 
 func init() {
@@ -21,6 +20,7 @@ func main() {
 	http.HandleFunc("/", handlers.Home)
 	http.HandleFunc("/create_account", auth.Register)
 	http.HandleFunc("/log_in", auth.Log_in)
+	http.HandleFunc("/log_out", auth.Log_out)
 	http.HandleFunc("/create_Post", handlers.Craete_post)
 	http.HandleFunc("/static/", handlers.Serve_Static)
 	fmt.Println("server is running on port 8080 ... http://localhost:8080")
