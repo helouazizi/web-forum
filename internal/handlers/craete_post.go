@@ -6,16 +6,16 @@ import (
 	"net/http"
 )
 
-func Craete_post(w http.ResponseWriter, r *http.Request) {
+func Submit_Post(w http.ResponseWriter, r *http.Request) {
 	pages := Pagess.All_Templates
-	if r.Method != http.MethodGet {
+	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		pages.ExecuteTemplate(w, "error.html", "method not allowed")
 		return
 	}
 	user_Id := 1
-	title := "title"
-	content := "content"
+	title := r.FormValue("postTitle")
+	content := r.FormValue("postContent")
 	total_likes := 1
 	total_dislikes := 1
 
@@ -36,4 +36,14 @@ func Craete_post(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/", http.StatusFound)
 
+}
+
+func Craete_Post(w http.ResponseWriter, r *http.Request) {
+	pages := Pagess.All_Templates
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.ExecuteTemplate(w, "error.html", "method not allowed")
+		return
+	}
+	pages.ExecuteTemplate(w, "createPost.html", nil)
 }

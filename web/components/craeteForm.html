@@ -1,0 +1,17 @@
+{{ define "CREATEPOST" }}
+<div class="form-container">
+    <h1>Create a Post</h1>
+    <form action="/submit_post" method="POST">
+        <label for="categories">Categories:</label>
+        <input type="text" id="categories" name="categories" placeholder="Enter categories (comma-separated)">
+
+        <label for="postTitle">Post Title:</label>
+        <input type="text" id="postTitle" name="postTitle" placeholder="Enter post title" required>
+
+        <label for="postContent">Post Content:</label>
+        <textarea class="postContent" id="postContent" name="postContent" placeholder="Write your post content here..." rows="5" required></textarea>
+
+        <button class="craetepost-btn" type="submit">Create Post</button>
+    </form>
+</div>
+{{ end }}

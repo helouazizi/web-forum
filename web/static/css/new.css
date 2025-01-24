@@ -354,7 +354,7 @@ footer {
 
 /*----------------------------------------------------------*/
 .form-container {
-    background-color: rgb(23, 26, 26);
+    background-color: #0000001a;
     border-radius: 5px;
     padding: 20px;
     box-shadow: 1px 1px 10px slategray;
@@ -408,4 +408,19 @@ p a {
 
 p a:hover {
     text-decoration: underline;
+}
+
+
+/*----------------------------*/
+.postContent {
+    width: 97%;
+    background-color: #f0ffffb3;
+}
+
+.craetepost-btn {
+    width: 100%;
+    background-color: black;
+    color: #ffffff;
+    padding: 5px;
+    margin-top: 5px;
 }
