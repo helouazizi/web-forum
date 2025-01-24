@@ -33,8 +33,11 @@ func main() {
 	fmt.Printf("Server starting on port: %d >>> http://localhost:8080\n", configuration.Port)
 
 	http.HandleFunc("/", handlers.Home)
-	http.HandleFunc("/create_account", auth.Register)
+	http.HandleFunc("/sign_up", handlers.Sign_Up)
+	http.HandleFunc("/register", auth.Register)
+	http.HandleFunc("/sign_in", handlers.Sign_In)
 	http.HandleFunc("/log_in", auth.Log_in)
+	http.HandleFunc("/log_out", auth.Log_out)
 	http.HandleFunc("/create_Post", handlers.Craete_post)
 	http.HandleFunc("/static/", handlers.Serve_Static)
 	//fmt.Println("server is running on port 8080 ... http://localhost:8080")

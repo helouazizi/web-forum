@@ -1,0 +1,38 @@
+<!-- web/templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/css/new.css">
+</head>
+
+<body>
+    <!-- web/components/header.html -->
+    {{template "HEADER2"}}
+
+    <main>
+        <!-- web/components/aside.html -->
+        {{template "ASIDE2"}}
+        <!-- web/components/post.html -->
+        <section class="container">
+            <h3>Resent Posts</h3>
+            {{template "POST"}}
+           
+            {{template "POST"}}
+            {{template "POST"}}
+            {{template "POST"}}
+            {{template "POST"}}
+          
+        </section>
+
+    </main>
+   
+    <!-- -------------------------------------------------------- -->
+    {{template "Footer"}}
+</body>
+
+</html>

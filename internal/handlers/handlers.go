@@ -4,8 +4,6 @@ import (
 	"log"
 	"net/http"
 	"text/template"
-
-	"forum/internal/utils"
 )
 
 type Server struct {
@@ -45,11 +43,28 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed hassan")
 		return
 	}
-	Pagess.All_Templates.ExecuteTemplate(w, "home.html", nil)
+	Pagess.All_Templates.ExecuteTemplate(w, "home2.html", nil)
+
+}
+
+func Sign_Up(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed hassan")
+		return
+	}
+	Pagess.All_Templates.ExecuteTemplate(w, "sign_up.html", nil)
+}
+func Sign_In(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed hassan")
+		return
+	}
+	Pagess.All_Templates.ExecuteTemplate(w, "sign_in.html", nil)
 }
 
 func Serve_Static(w http.ResponseWriter, r *http.Request) {
-	path, _ := utils.GetFolderPath("..", "static")
-	fs := http.FileServer(http.Dir(path))
+	fs := http.FileServer(http.Dir("./web/static"))
 	http.StripPrefix("/static/", fs).ServeHTTP(w, r)
 }
