@@ -1,20 +1,14 @@
 package handlers
 
 import (
+	"forum/internal/database"
 	"log"
 	"net/http"
 	"text/template"
 )
 
-type Server struct {
-	Log bool
-}
 type Pages struct {
 	All_Templates *template.Template
-}
-type Form struct {
-	Title  string
-	Button string
 }
 
 var Pagess Pages
@@ -43,7 +37,9 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed hassan")
 		return
 	}
-	Pagess.All_Templates.ExecuteTemplate(w, "home2.html", nil)
+	// lets fetch data from database
+	posts := database.Fetch_Database()
+	Pagess.All_Templates.ExecuteTemplate(w, "home2.html", *posts)
 
 }
 

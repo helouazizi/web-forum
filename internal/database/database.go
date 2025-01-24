@@ -6,6 +6,7 @@ import (
 	"bufio"
 	"database/sql"
 	"fmt"
+	"forum/internal/models"
 	"log"
 	"os"
 	"strings"
@@ -56,4 +57,30 @@ func Create_database() {
 		log.Fatal(err)
 	}
 	fmt.Println("data base creatd succesfully")
+}
+
+func Fetch_Database() *[]models.Post {
+	// lets connect to our dtatbase
+	rows, err := Database.Query("SELECT title , content FROM posts")
+	if err != nil {
+		fmt.Println("Error executing query:", err)
+		log.Fatal("Error executing query:", err)
+	}
+	defer rows.Close()
+	// lets iterate over rows and store them our models
+	data := &models.Data{}
+
+	for rows.Next() {
+		post := &models.Post{}
+		rows.Scan(&post.PostTitle, &post.PostContent)
+		//log.Println(title, content, "data extracted")
+		data.Posts = append(data.Posts, *post)
+
+	}
+	if err := rows.Err(); err != nil {
+		fmt.Println(err)
+		log.Fatal(err)
+	}
+
+	return &data.Posts
 }

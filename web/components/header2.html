@@ -1,9 +1,16 @@
 {{ define "HEADER2" }}
 <header>
     <h1><a href="/">Forum</a></h1>
+    {{ if .IsLoged}}
+    <div class="avatar">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlOLBRK-3wEFFeCojWlHou4nooggl5iI2PJQ&s"
+            alt="user avatar">
+    </div>
+    {{ else }}
     <div class="register">
         <button class="sign-in"><a href="/sign_in">sign-in</a></button>
         <button class="sign-up"><a href="/sign_up">sign-up</a></button>
     </div>
+    {{ end }}
 </header>
 {{ end }}

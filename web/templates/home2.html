@@ -20,13 +20,9 @@
         <!-- web/components/post.html -->
         <section class="container">
             <h3>Resent Posts</h3>
-            {{template "POST"}}
-           
-            {{template "POST"}}
-            {{template "POST"}}
-            {{template "POST"}}
-            {{template "POST"}}
-          
+            {{ range . }}
+                {{ template "POST" .}}
+            {{ end }}
         </section>
 
     </main>
