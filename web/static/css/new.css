@@ -77,11 +77,52 @@ aside {
     }
 
     i {
-        background-color: #75b375;
+        background-color: #75b375ae;
         padding: 10px;
         border-radius: 50%;
-        color: #E0E0E0;
+        color: #000000;
     }
+
+}
+
+.under-profile {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgb(31, 33, 34);
+    width: 20%;
+    height: fit-content;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px #4e514e;
+    padding: 5px;
+    div{
+        margin-bottom: 10px;
+    }
+    .sweets {
+        span {
+            margin-bottom: 5px;
+            display: block;
+            background-color: black;
+            padding: 10px 2px;
+            border-radius: 10px;
+            padding-left: 5px;
+            color: #ffffff84;
+        }
+    }
+    .settings {
+        border-radius: 10px;
+        background-color: #151313;
+        padding: 5px;
+        a {
+            display: block;
+            margin-bottom: 5px;
+            color: #a09e9e;
+        }
+        .fa-user-xmark {
+            color: rgba(255, 0, 0, 0.594);
+        }
+    }
+    
 
 }
 
@@ -269,7 +310,7 @@ span {
     margin-right: 10px;
     border-radius: 4px;
     font-size: 14px;
-border: none;
+    border: none;
     background-color: #312c2cb5;
 }
 
@@ -329,11 +370,23 @@ footer {
         width: 100%;
         display: flex;
         flex-direction: row;
+        margin-top: -20px;
 
         a {
             display: flex;
             align-items: center;
             background-color: #12121200;
+
+            span {
+                display: none;
+            }
+        }
+
+        i {
+            background-color: #75b3757b;
+            padding: 10px;
+            border-radius: 50%;
+            color: #000000;
         }
 
         justify-content: space-evenly;
@@ -348,6 +401,10 @@ footer {
         .post-container {
             width: 93%;
         }
+    }
+
+    .under-profile {
+        display: none;
     }
 
 }

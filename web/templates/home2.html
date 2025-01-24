@@ -24,6 +24,9 @@
                 {{ template "POST" .}}
             {{ end }}
         </section>
+        {{ if .IsLoged }}
+        {{ template "UNDERPROFILE" }}
+        {{ end }}
 
     </main>
    

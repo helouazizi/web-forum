@@ -1,0 +1,20 @@
+{{ define "UNDERPROFILE" }}
+<div class="under-profile">
+    <div class="profile">
+        <img src="../static/images/avatarImg.jpeg"alt="Profile Picture">
+        <div class="profile-info">
+            <span class="username">User  Name</span>
+            <span class="post-time">email</span>
+        </div>
+    </div>
+    <div class="sweets">
+        <span>Total Posts: 10</span>
+        <span>Total likes: 30</span>
+    </div>
+    <div class="settings">
+        <a href="/dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="/log_out"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+        <a href="/delete_account"><i class="fa-solid fa-user-xmark"></i> Delete Account</a>
+    </div>
+</div>
+{{ end }}
