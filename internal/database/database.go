@@ -62,7 +62,20 @@ func Create_database() {
 
 func Fetch_Database(r *http.Request) *models.Data {
 	// lets connect to our dtatbase
-	rows, err := Database.Query("SELECT title , content , created_at , total_likes , total_dislikes FROM posts")
+	query := `
+		SELECT 
+			posts.title, posts.content, posts.total_likes, posts.total_dislikes, posts.created_at,
+			users.userName
+		FROM 
+			posts
+		INNER JOIN 
+			users
+		ON 
+			posts.user_id = users.id
+		ORDER BY 
+			posts.created_at DESC
+	`
+	rows, err := Database.Query(query)
 	if err != nil {
 		fmt.Println("Error executing query:", err)
 		log.Fatal("Error executing query:", err)
@@ -92,13 +105,16 @@ func Fetch_Database(r *http.Request) *models.Data {
 
 	for rows.Next() {
 		post := &models.Post{}
-		rows.Scan(&post.PostTitle, &post.PostContent, &post.PostCreatedAt, &post.TotalLikes, &post.TotalDeslikes)
-		//log.Println(title, content, "data extracted")
+		err := rows.Scan(
+			&post.PostTitle, &post.PostContent, &post.TotalLikes, &post.TotalDeslikes, &post.PostCreatedAt, &post.PostCreator,
+		)
+		if err != nil {
+			log.Fatalf("Failed to scan row: %v", err)
+		}
 		data.Posts = append(data.Posts, *post)
 	}
 
 	if err := rows.Err(); err != nil {
-		fmt.Println(err)
 		log.Fatal(err)
 	}
 

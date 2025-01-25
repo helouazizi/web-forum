@@ -59,7 +59,6 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 
 	http.SetCookie(w, cookie)
 	r.AddCookie(cookie)
-	Update_Token(w, r, "token", Token)
 	data := database.Fetch_Database(r)
 	pages.All_Templates.ExecuteTemplate(w, "home2.html", data)
 

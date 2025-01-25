@@ -21,7 +21,6 @@ func Log_out(w http.ResponseWriter, r *http.Request) {
 		pages.All_Templates.ExecuteTemplate(w, "error.html", "page not founttt")
 		return
 	}
-	Update_Token(w, r, "token", "")
 	http.SetCookie(w, &http.Cookie{
 		Name:     "token",         // name of the cookie
 		Value:    "",              // clear the cookie value

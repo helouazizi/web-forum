@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"forum/internal/database"
 	"net/http"
 )
@@ -29,7 +28,6 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 	// lets insert this data to our database
 	_, err := database.Database.Exec("INSERT INTO posts (user_id,title,content,total_likes,total_dislikes) VALUES ( ?,?,?,?,?)", user_Id, title, content, total_likes, total_dislikes)
 	if err != nil {
-		fmt.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		pages.ExecuteTemplate(w, "error.html", "internal server error")
 		return
