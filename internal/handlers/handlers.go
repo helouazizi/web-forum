@@ -64,16 +64,3 @@ func Serve_Static(w http.ResponseWriter, r *http.Request) {
 	fs := http.FileServer(http.Dir("./web/static"))
 	http.StripPrefix("/static/", fs).ServeHTTP(w, r)
 }
-
-func Check_Token(r *http.Request) (bool, error) {
-	// lets get the token from the request
-	coockie, err := r.Cookie("token")
-	if err != nil {
-		return false, err
-	}
-	token := coockie.Value
-	if token == "" {
-		return false, nil
-	}
-	return true, nil
-}

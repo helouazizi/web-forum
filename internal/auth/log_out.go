@@ -34,17 +34,14 @@ func Log_out(w http.ResponseWriter, r *http.Request) {
 	// lets remove his token from database
 	token, err := r.Cookie("token")
 	if err == nil {
-		fmt.Println("yes")
+		fmt.Println(token.Value)
 		_, err := database.Database.Exec("UPDATE users SET token = $1 WHERE token = $1 ", "", token.Value)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			pages.All_Templates.ExecuteTemplate(w, "error.html", "internal server error")
 			return
 		}
-
-		//fmt.Printf("User with ID %v updated successfully.\n", token.Value)
-
 	}
-	
+
 	http.Redirect(w, r, "/", http.StatusFound)
 }

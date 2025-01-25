@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"forum/internal/database"
 	"forum/internal/handlers"
-	"log"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -26,7 +25,6 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 	}
 	UserName := r.FormValue("userName")
 	Password := r.FormValue("userPassword")
-
 	if UserName == "" || Password == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		pages.All_Templates.ExecuteTemplate(w, "error.html", "Bad Request")
@@ -60,7 +58,8 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, cookie)
-	// lets log the user in
-	log.Println(UserName, "logged in")
-	http.Redirect(w, r, "/", http.StatusFound)
+	r.AddCookie(cookie)
+	data := database.Fetch_Database(r)
+	pages.All_Templates.ExecuteTemplate(w, "home2.html", data)
+
 }
