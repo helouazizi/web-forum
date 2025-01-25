@@ -25,6 +25,7 @@ func IsCookieSet(r *http.Request, cookieName string) bool {
 	// be care full with  no token
 	tokenErr := database.Database.QueryRow("SELECT EXISTS (SELECT 1 FROM users WHERE token = $1)", token).Scan(&tokenExist)
 	if tokenErr != nil || !tokenExist {
+		fmt.Println(tokenErr, tokenExist)
 		return false
 	}
 

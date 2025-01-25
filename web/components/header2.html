@@ -1,11 +1,10 @@
 {{ define "HEADER2" }}
 <header>
     <h1><a href="/">Forum</a></h1>
-    {{ if .IsLoged}}
-    <div class="avatar">
-        <img src="../static/images/person.svg"
-            alt="user avatar">
-            <button class="sign-in"><a href="/create_post">Add Post</a></button>
+    {{ if .Userr.IsLoged }}
+    <div class="profile">
+        <button class="sign-in"><a href="/log_out"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a> </button>
+        <img src="../static/images/person.svg" alt="user avatar">
     </div>
     {{ else }}
     <div class="register">

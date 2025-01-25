@@ -45,5 +45,6 @@ func Craete_Post(w http.ResponseWriter, r *http.Request) {
 		pages.ExecuteTemplate(w, "error.html", "method not allowed")
 		return
 	}
-	pages.ExecuteTemplate(w, "createPost.html", nil)
+	data := database.Fetch_Database(r)
+	pages.ExecuteTemplate(w, "createPost.html", data)
 }

@@ -95,9 +95,12 @@ aside {
     border-radius: 10px;
     box-shadow: 1px 1px 10px #4e514e;
     padding: 5px;
-    div{
+    color: whitesmoke;
+
+    div {
         margin-bottom: 10px;
     }
+
     .sweets {
         span {
             margin-bottom: 5px;
@@ -109,20 +112,23 @@ aside {
             color: #ffffff84;
         }
     }
+
     .settings {
         border-radius: 10px;
         background-color: #151313;
         padding: 5px;
+
         a {
             display: block;
             margin-bottom: 5px;
             color: #a09e9e;
         }
+
         .fa-user-xmark {
             color: rgba(255, 0, 0, 0.594);
         }
     }
-    
+
 
 }
 
@@ -136,8 +142,13 @@ aside {
     width: 80%;
     background-color: rgba(60, 89, 89, 0);
     max-height: 80vh;
-    /* Set a maximum height for the container */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
     overflow-y: auto;
+    #resentPost  {
+        text-align: start;
+    }
 
 }
 
@@ -155,12 +166,11 @@ body::-webkit-scrollbar {
 
 .post-container {
     background-color: #0000001a;
-    /* border: 1px solid #e0e0e0; */
     border-radius: 8px;
     padding: 20px;
-    margin: 20px 0;
+    margin-bottom: 30px;
+    width: 90%;
     box-shadow: 1px 1px 10px dimgrey;
-    transition: transform 0.2s;
 }
 
 .post-container:hover {

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"forum/internal/models"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 
@@ -59,9 +60,9 @@ func Create_database() {
 	fmt.Println("data base creatd succesfully")
 }
 
-func Fetch_Database() *[]models.Post {
+func Fetch_Database(r *http.Request) *models.Data {
 	// lets connect to our dtatbase
-	rows, err := Database.Query("SELECT title , content FROM posts")
+	rows, err := Database.Query("SELECT title , content , created_at , total_likes , total_dislikes FROM posts")
 	if err != nil {
 		fmt.Println("Error executing query:", err)
 		log.Fatal("Error executing query:", err)
@@ -70,17 +71,35 @@ func Fetch_Database() *[]models.Post {
 	// lets iterate over rows and store them our models
 	data := &models.Data{}
 
+	// lets check if the user have a token
+
+	if t, err := r.Cookie("token"); err == nil {
+		// Only access `t.Value` if no error occurred
+		if t.Value != "" {
+			data.Userr.IsLoged = true
+		}
+	}
+	// lets extract hus username
+	userName := r.FormValue("userName")
+	Email := r.FormValue("userEmail")
+	if Email == "" {
+		Database.QueryRow("SELECT userEmail FROM users WHERE userName = $1", userName).Scan(&Email)
+	}
+	fmt.Println(userName, Email)
+	data.Userr.UserName = userName
+	data.Userr.UserEmail = Email
+
 	for rows.Next() {
 		post := &models.Post{}
-		rows.Scan(&post.PostTitle, &post.PostContent)
+		rows.Scan(&post.PostTitle, &post.PostContent, &post.PostCreatedAt, &post.TotalLikes, &post.TotalDeslikes)
 		//log.Println(title, content, "data extracted")
 		data.Posts = append(data.Posts, *post)
-
 	}
+
 	if err := rows.Err(); err != nil {
 		fmt.Println(err)
 		log.Fatal(err)
 	}
 
-	return &data.Posts
+	return data
 }

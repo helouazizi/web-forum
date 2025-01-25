@@ -1,10 +1,10 @@
 {{ define "UNDERPROFILE" }}
 <div class="under-profile">
     <div class="profile">
-        <img src="../static/images/avatarImg.jpeg"alt="Profile Picture">
+        <img src="../static/images/person.svg"alt="Profile Picture">
         <div class="profile-info">
-            <span class="username">User  Name</span>
-            <span class="post-time">email</span>
+            <span class="username"> {{ .Userr.UserName }} hassan</span>
+            <span class="post-time">{{ .Userr.UserEmail }} email</span>
         </div>
     </div>
     <div class="sweets">

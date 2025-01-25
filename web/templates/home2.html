@@ -12,20 +12,22 @@
 
 <body>
     <!-- web/components/header.html -->
-    {{template "HEADER2"}}
+    {{template "HEADER2" .}}
+
 
     <main>
         <!-- web/components/aside.html -->
         {{template "ASIDE2"}}
         <!-- web/components/post.html -->
+        
         <section class="container">
-            <h3>Resent Posts</h3>
-            {{ range . }}
+            <h3 id="resentPost">Resent Posts</h3>
+            {{ range .Posts }}
                 {{ template "POST" .}}
             {{ end }}
         </section>
-        {{ if .IsLoged }}
-        {{ template "UNDERPROFILE" }}
+        {{ if .Userr.IsLoged }}
+        {{ template "UNDERPROFILE" .}}
         {{ end }}
 
     </main>

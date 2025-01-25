@@ -12,13 +12,16 @@
 
 <body>
     <!-- web/components/header.html -->
-    {{template "HEADER2"}}
+    {{template "HEADER2" .}}
 
     <main class="main">
         {{template "ASIDE2"}}
         <section class="container">
-            {{template "CREATEPOST"}}
+            {{template "CREATEPOST" }}
         </section>
+        {{ if .Userr.IsLoged }}
+        {{ template "UNDERPROFILE" }}
+        {{ end }}
     </main>
     <!-- -------------------------------------------------------- -->
     {{template "Footer"}}
