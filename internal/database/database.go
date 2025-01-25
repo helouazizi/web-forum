@@ -77,13 +77,10 @@ func Fetch_Database(r *http.Request) *models.Data {
 		if t.Value != "" {
 			data.Userr.IsLoged = true
 		}
-	} else {
-		fmt.Println("token not set")
 	}
 	// lets extract hus username
 	userName := r.FormValue("userName")
 	Email := r.FormValue("userEmail")
-	fmt.Println(userName, Email, "befor")
 	if Email == "" {
 		//fmt.Println("email empty")
 		Database.QueryRow("SELECT userEmail FROM users WHERE userName = $1 ", userName).Scan(&Email)
@@ -91,7 +88,7 @@ func Fetch_Database(r *http.Request) *models.Data {
 
 	data.Userr.UserName = userName
 	data.Userr.UserEmail = Email
-	fmt.Println(data.Userr.UserName, data.Userr.UserEmail, data.Userr.IsLoged, " after in data base ")
+	//fmt.Println(data.Userr.UserName, data.Userr.UserEmail, data.Userr.IsLoged, " after in data base ")
 
 	for rows.Next() {
 		post := &models.Post{}

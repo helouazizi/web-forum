@@ -53,6 +53,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if userExist || emailExist {
+		w.WriteHeader(http.StatusBadRequest)
 		pages.ExecuteTemplate(w, "error.html", "User already exists")
 		return
 	} else {

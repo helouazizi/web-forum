@@ -1,10 +1,8 @@
 package auth
 
 import (
-	"fmt"
+	"log"
 	"net/http"
-
-	"forum/internal/database"
 )
 
 func IsCookieSet(r *http.Request, cookieName string) bool {
@@ -15,16 +13,11 @@ func IsCookieSet(r *http.Request, cookieName string) bool {
 			return false
 		}
 
-		fmt.Println("Error retrieving cookie:", err)
+		log.Println("Error retrieving cookie:", err)
 		return false
 	}
-	// lets extract the token value from the cookie and compare it with the one we have in databse
-	token := cookie.Value
-	var tokenExist bool
-	// lets extract the token from users table
-	// be care full with  no token
-	tokenErr := database.Database.QueryRow("SELECT EXISTS (SELECT 1 FROM users WHERE token = $1)", token).Scan(&tokenExist)
-	if tokenErr != nil || !tokenExist {
+	
+	if cookie.Value == "" {
 		return false
 	}
 
