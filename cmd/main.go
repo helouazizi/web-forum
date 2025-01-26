@@ -40,6 +40,5 @@ func main() {
 	http.HandleFunc("/create_post", handlers.Craete_Post)
 	http.HandleFunc("/submit_post", handlers.Submit_Post)
 	http.HandleFunc("/static/", handlers.Serve_Static)
-	// fmt.Println("server is running on port 8080 ... http://localhost:8080")
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", configuration.Port), nil))
 }
