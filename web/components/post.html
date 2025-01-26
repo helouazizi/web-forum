@@ -18,18 +18,15 @@
     </div>
     <div class="comment-section">
         <input type="text" class="comment-input" placeholder="Add a comment...">
-        <button class="submit-comment">Submit</button>
     </div>
     <div class="post-actions">
-        
         <div class="likes">
             <button><i class="fas fa-thumbs-up"></i> {{ .TotalLikes }}</button>
-        </div>
-        <div class="dislikes">
             <button><i class="fas fa-thumbs-down"></i> {{ .TotalDeslikes }}</button>
+            <button><i class="fas fa-comment"></i> 12</button>
         </div>
         <div class="comments">
-            <button><i class="fas fa-comment"></i> 12</button>
+            <button class="submit-comment">Submit</button>
         </div>
     </div>
    
