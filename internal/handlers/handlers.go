@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"forum/internal/database"
 	"log"
 	"net/http"
 	"text/template"
+
+	"forum/internal/database"
 )
 
 type Pages struct {
@@ -15,7 +16,6 @@ var Pagess Pages
 
 func ParseTemplates() {
 	var err error
-
 	Pagess.All_Templates, err = template.ParseGlob("./web/templates/*.html")
 	if err != nil {
 		log.Fatal(err)
@@ -37,10 +37,12 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed hassan")
 		return
 	}
-	// lets fetch data from database
+	// userName := r.FormValue("userName")
+	// userPassword := r.FormValue("userPassword")
+	// Email := r.FormValue("userEmail")
+	// fmt.Println(userName, userPassword, Email, "home")
 	data := database.Fetch_Database(r)
 	Pagess.All_Templates.ExecuteTemplate(w, "home2.html", data)
-
 }
 
 func Sign_Up(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +52,9 @@ func Sign_Up(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	Pagess.All_Templates.ExecuteTemplate(w, "sign_up.html", nil)
+	return
 }
+
 func Sign_In(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
@@ -58,9 +62,11 @@ func Sign_In(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	Pagess.All_Templates.ExecuteTemplate(w, "sign_in.html", nil)
+	return
 }
 
 func Serve_Static(w http.ResponseWriter, r *http.Request) {
 	fs := http.FileServer(http.Dir("./web/static"))
 	http.StripPrefix("/static/", fs).ServeHTTP(w, r)
+	return
 }
