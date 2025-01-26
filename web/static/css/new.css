@@ -9,10 +9,7 @@ body {
 a {
     text-decoration: none;
     color: #b1adad;
-
 }
-
-
 
 header {
     display: flex;
@@ -66,15 +63,30 @@ main {
 aside {
     width: 20%;
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
-
 
     a {
         display: block;
-        /* margin: 20px 0px;*/
-        color: rgba(255, 255, 255, 0.648);
-        padding: 8px 0px;
     }
+
+    .filter-header {
+        margin-left: 10px;
+
+        i {
+            background-color: #75b375ae;
+            padding: 6px;
+            border-radius: 50%;
+            color: #000000;
+        }
+    }
+
+}
+
+.links-section {
+    border: 1px solid rgba(255, 255, 255, 0.548);
+    border-left: none;
+    border-radius: 10px;
 
     i {
         background-color: #75b375ae;
@@ -83,6 +95,61 @@ aside {
         color: #000000;
     }
 
+    a {
+        padding: 10px;
+        color: #ffffff;
+    }
+
+}
+
+.filter-section {
+    height: fit-content;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: none;
+    border-radius: 10px;
+    padding: 10px;
+
+    form {
+        padding: 10px;
+        color: white;
+    }
+
+    input {
+        display: none;
+        padding: 5px 0px;
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked+label {
+        color: #75b475;
+    }
+
+    i {
+        color: #75b375ae;
+    }
+
+    .categories {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #8f3333;
+    }
+
+    .filter {
+        background-color: rgb(72, 116, 72);
+        color: #000000;
+        border-radius: 10px;
+        text-align: center;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .filter:hover {
+        background-color: rgba(219, 219, 219, 0.568);
+    }
 }
 
 .under-profile {
@@ -146,9 +213,8 @@ aside {
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
-    #resentPost  {
-        text-align: start;
-    }
+
+
 
 }
 
@@ -169,7 +235,7 @@ body::-webkit-scrollbar {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 30px;
-    width: 90%;
+    width: 60%;
     box-shadow: 1px 1px 10px dimgrey;
 }
 
@@ -229,14 +295,14 @@ body::-webkit-scrollbar {
 }
 
 .category {
-    background-color: #e0f7fa;
     /* Light blue background for categories */
-    border-radius: 4px;
     /* Rounded corners for categories */
-    padding: 2px 5px;
     /* Padding inside category */
-    margin-right: 5px;
     /* Space between categories */
+    border: 1px dashed #bdbdbd46;
+    padding: 5px 20px;
+    border-radius: 20px;
+    color: #ffffffad;
 }
 
 .post-title h2 {
@@ -257,6 +323,7 @@ body::-webkit-scrollbar {
     /* Line height for better readability */
     margin-bottom: 15px;
     /* Space below the content */
+    overflow-wrap: break-word;
 }
 
 .post-actions {
@@ -325,16 +392,16 @@ span {
 }
 
 .comment-input:focus {
-    border-color: #007bff;
+    border-color: #808080;
     /* Change border color on focus */
     outline: none;
     /* Remove default outline */
 }
 
 .submit-comment {
-    background-color: #007bff;
+    background-color: #888888;
     /* Blue background for the button */
-    color: white;
+    color: rgb(0, 0, 0);
     /* White text color for the button */
     border: none;
     /* Remove border */
@@ -381,6 +448,9 @@ footer {
         display: flex;
         flex-direction: row;
         margin-top: -20px;
+        justify-content: space-evenly;
+        align-items: center;
+        background-color: rgba(189, 115, 25, 0);
 
         a {
             display: flex;
@@ -399,9 +469,7 @@ footer {
             color: #000000;
         }
 
-        justify-content: space-evenly;
-        align-items: center;
-        background-color: rgba(189, 115, 25, 0);
+
     }
 
     .container {
@@ -428,6 +496,30 @@ footer {
     width: 50%;
     text-align: center;
     height: fit-content;
+}
+
+.post-categories {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+
+    input {
+        display: none;
+        padding: 5px 0px;
+    }
+
+    label {
+        border: 1px dashed #bdbdbd46;
+        padding: 5px 20px;
+        border-radius: 20px;
+        color: #ffffff96;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked+label {
+        background-color: #75b475a9;
+        color: #000;
+    }
 }
 
 h2 {
@@ -486,8 +578,8 @@ p a:hover {
 
 .craetepost-btn {
     width: 100%;
-    background-color: black;
-    color: #ffffff;
-    padding: 5px;
+    background-color: rgb(88, 153, 82);
+    color: #000000;
+    padding: 10px;
     margin-top: 5px;
 }
