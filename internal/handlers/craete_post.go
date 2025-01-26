@@ -49,4 +49,5 @@ func Craete_Post(w http.ResponseWriter, r *http.Request) {
 	}
 	data := database.Fetch_Database(r)
 	pages.ExecuteTemplate(w, "createPost.html", data)
+	return
 }
