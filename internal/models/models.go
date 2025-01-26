@@ -13,12 +13,12 @@ type Data struct {
 }
 
 type Post struct {
-	PostCreator               string
-	PostCreatedAt             string
-	PostTitle                 string
-	PostContent               string
-	TotalLikes, TotalDeslikes int
-	Categories                []Categorie
+	PostCreator                       string
+	PostCreatedAt                     string
+	PostTitle                         string
+	PostContent                       string
+	TotalLikes, TotalDeslikes, PostId int
+	Categories                        []Categorie
 }
 type Categorie struct {
 	CatergoryName string
