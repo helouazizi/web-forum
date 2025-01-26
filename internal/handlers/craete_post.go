@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -14,12 +15,13 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 		pages.ExecuteTemplate(w, "error.html", "method not allowed")
 		return
 	}
+	r.ParseForm()
 	user_Id := 1
+	categories := r.Form["categorie"] ///////////////////////  be carefull
 	title := r.FormValue("postTitle")
 	content := r.FormValue("postContent")
-	total_likes := 1
-	total_dislikes := 1
 	time := time.Now().Format(time.DateOnly)
+	fmt.Println(categories)
 
 	// lets check for emptyness
 	if title == "" || content == "" {
@@ -27,9 +29,9 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 		pages.ExecuteTemplate(w, "error.html", "bad request")
 		return
 	}
-
 	// lets insert this data to our database
-	_, err := database.Database.Exec("INSERT INTO posts (user_id,title,content,total_likes,total_dislikes,created_at) VALUES ( ?,?,?,?,?,?)", user_Id, title, content, total_likes, total_dislikes, time)
+	query := "INSERT INTO posts (user_id,title,content,created_at) VALUES (?,?,?,?)"
+	_, err := database.Database.Exec(query, user_Id, title, content, time)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		pages.ExecuteTemplate(w, "error.html", "internal server error")
