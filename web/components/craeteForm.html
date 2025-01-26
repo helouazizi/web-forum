@@ -2,14 +2,24 @@
 <div class="form-container">
     <h1>Create a Post</h1>
     <form action="/submit_post" method="POST">
-        <label for="categories">Categories:</label>
-        <input type="text" id="categories" name="categories" placeholder="Enter categories (comma-separated)">
+        <h4 style="text-align: start;" >Catecories:</h4>
+        <div class="post-categories">
+            <input type="checkbox" id="createtech" name="categorie" value="tech">
+            <label for="createtech">Tech</label>
+            <input type="checkbox" id="craetegaming" name="categorie" value="gaming">
+            <label for="craetegaming">Gaming</label>
+            <input type="checkbox" id="craetemovies" name="categorie" value="movies">
+            <label for="craetemovies">Movies</label>
+            <input type="checkbox" id="craetemusic" name="categorie" value="music">
+            <label for="craetemusic">Music</label>
+        </div>
 
         <label for="postTitle">Post Title:</label>
         <input type="text" id="postTitle" name="postTitle" placeholder="Enter post title" required>
 
         <label for="postContent">Post Content:</label>
-        <textarea class="postContent" id="postContent" name="postContent" placeholder="Write your post content here..." rows="5" required></textarea>
+        <textarea class="postContent" id="postContent" name="postContent" placeholder="Write your post content here..."
+            rows="5" required></textarea>
 
         <button class="craetepost-btn" type="submit">Create Post</button>
     </form>

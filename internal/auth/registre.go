@@ -29,7 +29,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	userPassword := r.FormValue("userPassword")
 	Email := r.FormValue("userEmail")
 	token := uuid.New().String()
-	//fmt.Println(userName, Email, "register form ")
+	// fmt.Println(userName, Email, "register form ")
 	if userName == "" || userPassword == "" || Email == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		pages.ExecuteTemplate(w, "error.html", "Bad Request")
@@ -71,9 +71,10 @@ func Register(w http.ResponseWriter, r *http.Request) {
 		Value:  token,
 		MaxAge: 3600,
 	}
+
 	http.SetCookie(w, cookie)
 	r.AddCookie(cookie)
 	data := database.Fetch_Database(r)
 	pages.ExecuteTemplate(w, "home2.html", data)
-
+	return
 }

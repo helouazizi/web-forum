@@ -6,11 +6,12 @@ import (
 	"bufio"
 	"database/sql"
 	"fmt"
-	"forum/internal/models"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+
+	"forum/internal/models"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -95,13 +96,13 @@ func Fetch_Database(r *http.Request) *models.Data {
 	userName := r.FormValue("userName")
 	Email := r.FormValue("userEmail")
 	if Email == "" {
-		//fmt.Println("email empty")
+		// fmt.Println("email empty")
 		Database.QueryRow("SELECT userEmail FROM users WHERE userName = $1 ", userName).Scan(&Email)
 	}
 
 	data.Userr.UserName = userName
 	data.Userr.UserEmail = Email
-	//fmt.Println(data.Userr.UserName, data.Userr.UserEmail, data.Userr.IsLoged, " after in data base ")
+	// fmt.Println(data.Userr.UserName, data.Userr.UserEmail, data.Userr.IsLoged, " after in data base ")
 
 	for rows.Next() {
 		post := &models.Post{}
@@ -117,6 +118,7 @@ func Fetch_Database(r *http.Request) *models.Data {
 	if err := rows.Err(); err != nil {
 		log.Fatal(err)
 	}
+	
 
 	return data
 }
