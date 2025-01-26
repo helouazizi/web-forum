@@ -118,7 +118,6 @@ func Fetch_Database(r *http.Request) *models.Data {
 	if err := rows.Err(); err != nil {
 		log.Fatal(err)
 	}
-	
 
 	return data
 }
