@@ -373,23 +373,25 @@ span {
 
 .comment-section {
     display: flex;
-    /* align-items: center; */
-    justify-content: unset;
-    background-color: rgba(240, 248, 255, 0);
+    background-color: rgba(0, 136, 255, 0);
+    
     padding: 5px;
+    width: 100%;
+    .comment-input {
+        width: 100%;
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 4px;
+        font-size: 14px;
+        border: none;
+        color: #c4c1c1;
+        background-color: #312c2cb5;
+    }
 
     /* Space above the comment section */
 }
 
-.comment-input {
-    flex: 1;
-    padding: 10px;
-    margin-right: 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    border: none;
-    background-color: #312c2cb5;
-}
+
 
 .comment-input:focus {
     border-color: #808080;
