@@ -38,7 +38,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	data := database.Fetch_Database(r)
-	Pagess.All_Templates.ExecuteTemplate(w, "home2.html", data)
+	Pagess.All_Templates.ExecuteTemplate(w, "home.html", data)
 }
 
 func Sign_Up(w http.ResponseWriter, r *http.Request) {
