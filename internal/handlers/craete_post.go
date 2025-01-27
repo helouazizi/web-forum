@@ -6,7 +6,20 @@ import (
 	"time"
 
 	"forum/internal/database"
+	"forum/internal/utils"
 )
+
+func Craete_Post(w http.ResponseWriter, r *http.Request) {
+	pages := Pagess.All_Templates
+	if r.Method != http.MethodGet {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		pages.ExecuteTemplate(w, "error.html", "method not allowed")
+		return
+	}
+	data := database.Fetch_Database(r)
+	pages.ExecuteTemplate(w, "createPost.html", data)
+	return
+}
 
 func Submit_Post(w http.ResponseWriter, r *http.Request) {
 	pages := Pagess.All_Templates
@@ -16,11 +29,12 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	r.ParseForm()
-	user_Id := 1
+	cookies, _ := r.Cookie("token")
+	user_Id, _ := utils.SelecRromDtabase("users", "id", cookies.Value)
 	categories := r.Form["categorie"] ///////////////////////  be carefull
 	title := r.FormValue("postTitle")
 	content := r.FormValue("postContent")
-	time := time.Now().Format(time.DateOnly)
+	time := time.Now().Format(time.DateTime)
 	fmt.Println(categories)
 
 	// lets check for emptyness
@@ -37,17 +51,7 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 		pages.ExecuteTemplate(w, "error.html", "internal server error")
 		return
 	}
-	http.Redirect(w, r, "/", http.StatusFound)
-}
-
-func Craete_Post(w http.ResponseWriter, r *http.Request) {
-	pages := Pagess.All_Templates
-	if r.Method != http.MethodGet {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		pages.ExecuteTemplate(w, "error.html", "method not allowed")
-		return
-	}
 	data := database.Fetch_Database(r)
-	pages.ExecuteTemplate(w, "createPost.html", data)
+	pages.ExecuteTemplate(w, "home.html", data)
 	return
 }
