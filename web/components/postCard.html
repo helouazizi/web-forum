@@ -1,12 +1,34 @@
-{{define "PostCard"}}
-    <div class="post-card">
-        <div class="post_header">
-            <a href="/">Post Title</a>
-            <div class="post_creator">
-                {{template "avatar"}}
-            </div>
+{{ define "POST" }}
+<div class="post-container">
+    <div class="profile">
+        <img src="../static/images/avatarImg.jpeg" alt="Profile Picture">
+        <div class="profile-info">
+            <span class="username">User  Name</span>
+            <span class="post-time">{{ .PostCreatedAt }}</span>
         </div>
-        <div class="post-card_body"></div>
-        <div class="post-card_footer"></div>
     </div>
-{{end}}
+    <div class="post-categories">
+    <span class="category">Category 1</span>, <span class="category">Category 2</span>
+    </div>
+    <div class="post-title">
+        <h2> {{ .PostTitle }}</h2>
+    </div>
+    <div class="post-content">
+        <p>{{ .PostContent }}</p>
+    </div>
+    <div class="comment-section">
+        <input type="text" class="comment-input" placeholder="Add a comment...">
+    </div>
+    <div class="post-actions">
+        <div class="likes">
+            <button><i class="fas fa-thumbs-up"></i> {{ .TotalLikes }}</button>
+            <button><i class="fas fa-thumbs-down"></i> {{ .TotalDeslikes }}</button>
+            <button><i class="fas fa-comment"></i> 12</button>
+        </div>
+        <div class="comments">
+            <button class="submit-comment">Submit</button>
+        </div>
+    </div>
+   
+</div>
+{{ end }}
