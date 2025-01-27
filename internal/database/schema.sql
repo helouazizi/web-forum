@@ -41,3 +41,5 @@ CREATE TABLE IF NOT EXISTS categories (
     post_id INT ,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
 );
+
+-- todo: use triggers to automatically change states of reactions 
