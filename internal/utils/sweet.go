@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+
+	"forum/internal/database"
 )
 
 func GetFolderPath(baseDir, folderName string) (string, error) {
@@ -22,7 +24,6 @@ func GetFolderPath(baseDir, folderName string) (string, error) {
 		}
 		return nil
 	})
-
 	if err != nil {
 		return "", err
 	}
@@ -32,4 +33,15 @@ func GetFolderPath(baseDir, folderName string) (string, error) {
 	}
 
 	return folderPath, nil
+}
+
+func SelecRromDtabase(table, column, value string) (int, error) {
+	db := database.Database
+	var result int
+	err := db.QueryRow(" SELECT "+column+" FROM "+table+" WHERE "+column+" = $1 ", value).Scan(&result)
+	if err != nil {
+		fmt.Println(err)
+		return -1, err
+	}
+	return result, nil
 }
