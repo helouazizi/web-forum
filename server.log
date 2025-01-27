@@ -7,3 +7,7 @@
 2025/01/26 17:15:35 Failed to scan row: sql: expected 7 destination arguments in Scan, not 6
 2025/01/26 17:16:45 Failed to scan row: sql: Scan error on column index 2, name "user_id": destination not a pointer
 2025/01/26 17:17:49 hassan account has been created
+2025/01/27 09:43:07 test account has been created
+2025/01/27 11:51:00 TFUYRT account has been created
+2025/01/27 13:21:55 listen tcp :8080: bind: address already in use
+2025/01/27 13:23:19 saa3d account has been created
