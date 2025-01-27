@@ -37,10 +37,6 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		Pagess.All_Templates.ExecuteTemplate(w, "error.html", "Method not allowed hassan")
 		return
 	}
-	// userName := r.FormValue("userName")
-	// userPassword := r.FormValue("userPassword")
-	// Email := r.FormValue("userEmail")
-	// fmt.Println(userName, userPassword, Email, "home")
 	data := database.Fetch_Database(r)
 	Pagess.All_Templates.ExecuteTemplate(w, "home2.html", data)
 }
