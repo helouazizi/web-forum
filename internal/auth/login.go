@@ -2,7 +2,6 @@ package auth
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -20,9 +19,9 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method Not Allowed")
 		return
 	}
-	if !IsCookieSet(r, "token") {
+	if IsCookieSet(r, "token") {
 		w.WriteHeader(http.StatusNotFound)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Page Not Found")
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Page Not Found hhhhh")
 		return
 	}
 	UserName := r.FormValue("userName")
@@ -69,8 +68,6 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 	// 	pages.All_Templates.ExecuteTemplate(w, "error.html", "Internal Server Error")
 	// 	return
 	// }
-
-	fmt.Println("token:", Token)
 	cookie := &http.Cookie{
 		Name:   "token",
 		Value:  Token,
