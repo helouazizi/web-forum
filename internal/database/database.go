@@ -89,7 +89,7 @@ func Fetch_Database(r *http.Request) *models.Data {
 
 	if t, err := r.Cookie("token"); err == nil {
 		if t.Value != "" {
-			data.Userr.IsLoged = true
+			data.User.IsLoged = true
 		}
 	}
 	// lets extract hus username
@@ -100,8 +100,8 @@ func Fetch_Database(r *http.Request) *models.Data {
 		Database.QueryRow("SELECT userEmail FROM users WHERE userName = $1 ", userName).Scan(&Email)
 	}
 
-	data.Userr.UserName = userName
-	data.Userr.UserEmail = Email
+	data.User.UserName = userName
+	data.User.UserEmail = Email
 	// fmt.Println(data.Userr.UserName, data.Userr.UserEmail, data.Userr.IsLoged, " after in data base ")
 
 	for rows.Next() {
