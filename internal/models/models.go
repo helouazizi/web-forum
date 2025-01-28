@@ -9,7 +9,7 @@ type User struct {
 }
 
 type Data struct {
-	Userr User
+	User  User
 	Posts []Post
 }
 
