@@ -22,7 +22,8 @@ lets set our main colors as global variables
   padding: 0;
   box-sizing: border-box;
 }
-a{
+
+a {
   text-decoration: none;
 }
 
@@ -63,8 +64,19 @@ main {
   header .profile {
     justify-content: center;
   }
+
   header .profile .add-post {
     display: none;
+  }
+  header .small-add-post {
+    display: inline-block;
+    position: absolute;
+    top: 117px;
+    right: 30px;
+  }
+  header .under-profile{
+    text-align: start;
+   
   }
 
   aside .links-section a,
@@ -72,23 +84,36 @@ main {
     font-size: 1rem;
   }
 
-  aside .burger-btn {
+  aside .btns{
     display: block;
+    button {
+      color: #ffffff;
+    }
+    
   }
 
   aside {
     height: fit-content;
   }
+
+  aside .burger-btn {
+    display: block;
+    width: fit-content;
+  }
   aside .btns {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: fit-content;
   }
-  aside  .links-section {
+
+  /* Hide the links and filter sections by default */
+  .links-section,
+  .filter-section {
     display: none;
   }
-  aside .filter-section  {
-    display: none;
+
+  /* Show the links-section and filter-section when the checkbox is checked */
+  #show-links:checked~.links-section,
+  #show-links:checked~.filter-section {
+    display: block;
   }
   .post-container {
     margin-top: -300px;
