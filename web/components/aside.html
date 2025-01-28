@@ -1,25 +1,36 @@
 {{ define "ASIDE" }}
-    <div class="links-section">
-        <a href="/"><i class="fas fa-home"></i> Home</a>
-        <a href="/myposts"><i class="fas fa-user"></i> My Posts</a>
-        <a href="/likedposts"><i class="fas fa-heart"></i> Liked Posts</a>
+<div class="btns">
+    <div>
+        <input type="checkbox" id="show-links" hidden>
+        <label for="show-links">
+            <button class="sign-btns"><i class="fas fa-bars"></i></button>
+        </label>
     </div>
-    <div class="filter-section">
-        <h3 class="filter-header"><i class="fas fa-filter"></i> Filter By:</h3>
-        <div class="category-section">
-            <div class="categories">
-               <form action="filter_by_categorie" method="GET">
+    <div>
+        <button class="sign-btns"><a href="/create_post"><i class="fas fa-plus"></i></a></button>
+    </div>
+</div>
+<div class="links-section">
+    <a href="/"><i class="fas fa-home"></i> Home</a>
+    <a href="/myposts"><i class="fas fa-user"></i> My Posts</a>
+    <a href="/likedposts"><i class="fas fa-heart"></i> Liked Posts</a>
+</div>
+<div class="filter-section">
+    <h3 class="filter-header"><i class="fas fa-filter"></i> Filter By:</h3>
+    <div class="category-section">
+        <div class="categories">
+            <form action="filter_by_categorie" method="GET">
                 <input type="checkbox" id="tech" name="categorie" value="tech" hidden>
                 <label for="tech"><i class="fas fa-tags"></i> Tech</label>
                 <input type="checkbox" id="gaming" name="categorie" value="gaming" hidden>
-                <label for="gaming" ><i class="fas fa-tags"></i> Gaming</label>
+                <label for="gaming"><i class="fas fa-tags"></i> Gaming</label>
                 <input type="checkbox" id="movies" name="categorie" value="movies" hidden>
                 <label for="movies"><i class="fas fa-tags"></i> Movies</label>
                 <input type="checkbox" id="music" name="categorie" value="music" hidden>
                 <label for="music"><i class="fas fa-tags"></i> Music</label>
                 <button type="submit" class="filter">Filter</button>
-               </form>
-            </div>
+            </form>
         </div>
     </div>
+</div>
 {{ end }}
