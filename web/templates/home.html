@@ -29,12 +29,6 @@
             {{ template "POST" .}}
             {{ end }}
         </section>
-         <!-- under profile is is loged in or registred-->
-         {{ if .User.IsLoged }}
-        <section class="under-profile">
-             {{ template "UNDERPROFILE" .}}
-        </section>
-        {{ end }}
     </main>
 
     <!-- -------------------------------------------------------- -->
