@@ -4,6 +4,28 @@ aside {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
+  aside .btns {
+    display: none;
+  }
+
+  aside .sign-btns {
+    background-color: #333;
+    
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    a {
+      color: var(--pure-white);
+    }
+  
+  }
+  
+ aside .sign-btns:hover {
+    background-color: #555;
+  }
   
   aside .links-section a {
     display: block;

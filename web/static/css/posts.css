@@ -1,7 +1,7 @@
  
   /* Post Section */
   .post-container {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.235);
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

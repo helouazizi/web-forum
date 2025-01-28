@@ -24,6 +24,28 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    cursor: pointer;
+  }
+  header .profile .under-profile {
+        display: none;
+        position: absolute;
+        top: 80px; /* Position below the avatar */
+        right: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        min-width: 250px;
+        padding: 10px;
+        z-index: 100;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+  }
+  header .profile input[type= "checkbox"]:checked+label+ .under-profile {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
   }
   
   header .profile a {
@@ -31,16 +53,20 @@
     color: white;
   }
   
-  header .profile button {
+  header .sign-btns {
     background-color: #333;
-    color: white;
+    
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
+    a {
+      color: var(--pure-white);
+    }
+  
   }
   
-  header .profile button:hover {
+  header .sign-btns:hover {
     background-color: #555;
   }

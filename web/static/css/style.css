@@ -9,33 +9,88 @@
 lets set our main colors as global variables
 */
 :root {
-    --primary-black: #0B0B0B;
-    --pure-white: #FFFFFF;
-    --emerald-green: #2ECC71;
-    --mint-green: #A5D6A7;
-    --charcoal-gray: #333333;
+  --primary-black: #0B0B0B;
+  --pure-white: #FFFFFF;
+  --emerald-green: #2ECC71;
+  --mint-green: #A5D6A7;
+  --charcoal-gray: #333333;
 }
 
 /* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: var(--primary-black);
-    color: var(--pure-white);
-    margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: var(--primary-black);
+  color: var(--pure-white);
+  margin: 0;
 }
 
 
 /* Layout Styles */
 main {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+  padding: 20px;
+  height: 90vh;
+}
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  header {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  header .profile {
+    justify-content: center;
+  }
+  header .profile .add-post {
+    display: none;
+  }
+
+  aside .links-section a,
+  aside .categories label {
+    font-size: 1rem;
+  }
+
+  aside .burger-btn {
+    display: block;
+  }
+
+  aside {
+    height: fit-content;
+  }
+  aside .btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  aside  .links-section {
+    display: none;
+  }
+  aside .filter-section  {
+    display: none;
+  }
+  .post-container {
+    margin-top: -300px;
+  }
 }
