@@ -7,33 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forum</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="static/css/new.css">
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 
 <body>
     <!-- web/components/header.html -->
-    {{template "HEADER2" .}}
-
+    <header>
+        {{template "HEADER" .}}
+    </header>
 
     <main>
         <!-- web/components/aside.html -->
-        {{template "ASIDE2"}}
+        <aside>
+            {{template "ASIDE" .}}
+        </aside>
+
         <!-- web/components/post.html -->
-        
-        <section class="container">
-            <h3 id="resentPost">Resent Posts</h3>
+
+        <section class="post-container">
             {{ range .Posts }}
-                {{ template "POST" .}}
+            {{ template "POST" .}}
             {{ end }}
         </section>
-        {{ if .Userr.IsLoged }}
-        {{ template "UNDERPROFILE" .}}
+         <!-- under profile is is loged in or registred-->
+         {{ if .User.IsLoged }}
+        <section class="under-profile">
+             {{ template "UNDERPROFILE" .}}
+        </section>
         {{ end }}
-
     </main>
-   
+
     <!-- -------------------------------------------------------- -->
-    {{template "Footer"}}
+    <footer>
+        {{template "FOOTER"}}
+    </footer>
+
 </body>
 
 </html>
