@@ -1,16 +1,15 @@
-{{ define "HEADER2" }}
-<header>
+{{ define "HEADER" }}
     <h1><a href="/">Forum</a></h1>
-    {{ if .Userr.IsLoged }}
+    {{ if .User.IsLoged }}
     <div class="profile">
-        <button class="sign-in"><a href="/log_out"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a> </button>
-        <img src="../static/images/person.svg" alt="user avatar">
+        <button class="sign-in-btn"><a href="/create_post"><i class="fas fa-plus"></i>  Add Post</a></button>
+        <button class="sign-up-btn"><a href="/log_out"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a> </button>
+        <img src="../static/images/person.svg" alt="user avatar" style="display: none;">
     </div>
     {{ else }}
     <div class="register">
-        <button class="sign-in"><a href="/sign_in">sign-in</a></button>
-        <button class="sign-up"><a href="/sign_up">sign-up</a></button>
+        <button class="sign-in-btn"><a href="/sign_in">sign-in</a></button>
+        <button class="sign-up-btn"><a href="/sign_up">sign-up</a></button>
     </div>
     {{ end }}
-</header>
 {{ end }}

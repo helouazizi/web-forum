@@ -1,10 +1,9 @@
 {{ define "UNDERPROFILE" }}
-<div class="under-profile">
     <div class="profile">
         <img src="../static/images/person.svg"alt="Profile Picture">
         <div class="profile-info">
-            <span class="username"> {{ .Userr.UserName }}</span>
-            <span class="post-time">{{ .Userr.UserEmail }}</span>
+            <span class="username"> {{ .User.UserName }}</span>
+            <span class="post-time">{{ .User.UserEmail }}</span>
         </div>
     </div>
     <div class="sweets">
@@ -16,5 +15,4 @@
         <a href="/log_out"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
         <a href="/delete_account"><i class="fa-solid fa-user-xmark"></i> Delete Account</a>
     </div>
-</div>
 {{ end }}
