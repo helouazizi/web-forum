@@ -3,8 +3,13 @@
     {{ if .User.IsLoged }}
     <div class="profile">
         <button class="sign-in-btn"><a href="/create_post"><i class="fas fa-plus"></i>  Add Post</a></button>
-        <button class="sign-up-btn"><a href="/log_out"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a> </button>
-        <img src="../static/images/person.svg" alt="user avatar" style="display: none;">
+        <div class="user-profile">
+            <input type="checkbox" id="profile" name="profile" hidden>
+            <label for="profile"> <img src="../static/images/person.svg" alt="user avatar"></label>
+            <div class="under-profile" style="display: none;">
+                {{ template "UNDERPROFILE" }}
+            </div> 
+        </div>
     </div>
     {{ else }}
     <div class="register">
