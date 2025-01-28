@@ -1,0 +1,46 @@
+  
+  /* Header Styles */
+  header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  header h1 a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  header .profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  header .profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  header .profile a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  header .profile button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  header .profile button:hover {
+    background-color: #555;
+  }

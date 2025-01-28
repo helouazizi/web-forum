@@ -1,0 +1,41 @@
+@import url("header.css");
+@import url("aside.css");
+@import url("posts.css");
+@import url("profile.css");
+@import url("footer.css");
+@import url("mediaQuery.css");
+
+/*
+lets set our main colors as global variables
+*/
+:root {
+    --primary-black: #0B0B0B;
+    --pure-white: #FFFFFF;
+    --emerald-green: #2ECC71;
+    --mint-green: #A5D6A7;
+    --charcoal-gray: #333333;
+}
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--primary-black);
+    color: var(--pure-white);
+    margin: 0;
+}
+
+
+/* Layout Styles */
+main {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+    padding: 20px;
+}
