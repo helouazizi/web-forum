@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS posts (
     content TEXT NOT NULL ,
     total_likes INT DEFAULT 0,
     total_dislikes INT DEFAULT 0,
+    total_comments INT DEFAULT 0,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
