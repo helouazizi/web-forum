@@ -5,7 +5,7 @@
    padding: 15px;
    border-radius: 10px;
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* z-index: -1;*/
+   /* z-index: -1;*/
    align-items: center;
    flex-direction: column;
    justify-content: center;
@@ -17,5 +17,43 @@
    padding: 20px;
    margin-bottom: 30px;
    width: 60%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
    box-shadow: 1px 1px 10px dimgrey;
+ }
+
+ .post .profile {
+   display: flex;
+   align-items: center;
+
+ }
+
+ .post .profile .profile-info {
+   display: block;
+ }
+
+ .profile img {
+   margin-right: 5px;
+   width: 50px;
+   border-radius: 50%;
+   height: fit-content;
+ }
+
+ .post .post-categories {
+   border-top: 1px solid gray;
+   margin: 5px 0px;
+ }
+
+
+
+ .post .comment-section .comment-input {
+  width: 100%;
+  background-color: lightgray;
+  border: none;
+ }
+
+ .post .post-actions {
+   display: flex;
+   justify-content: space-between;
  }
