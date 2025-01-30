@@ -21,15 +21,15 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 	if IsCookieSet(r, "token") {
 		w.WriteHeader(http.StatusNotFound)
-		pages.ExecuteTemplate(w, "error.html", "you have a session")
+		pages.ExecuteTemplate(w, "error.html", "not found")
 		return
 	}
-
+	r.ParseForm()
 	userName := r.FormValue("userName")
 	userPassword := r.FormValue("userPassword")
 	Email := r.FormValue("userEmail")
 	Token := uuid.New().String()
-	// fmt.Println(userName, Email, "register form ")
+	// lets check for emptyness
 	if userName == "" || userPassword == "" || Email == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		pages.ExecuteTemplate(w, "error.html", "Bad Request")
@@ -38,7 +38,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	Hach_pass, err := bcrypt.GenerateFromPassword([]byte(userPassword), 10)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		pages.ExecuteTemplate(w, "error.html", "error hasching passord")
+		pages.ExecuteTemplate(w, "error.html", "internal server error")
 		return
 	}
 	var userExist bool
@@ -54,7 +54,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 	if userExist || emailExist {
 		w.WriteHeader(http.StatusBadRequest)
-		pages.ExecuteTemplate(w, "error.html", "User already exists")
+		pages.ExecuteTemplate(w, "sign_up.html", "Invalid Password or UserName")
 		return
 	} else {
 		_, err := database.Database.Exec("INSERT INTO users (userName,userEmail,userPassword,token) VALUES ($1, $2, $3 , $4 )", userName, Email, string(Hach_pass), Token)
@@ -76,5 +76,5 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, cookie)
 	r.AddCookie(cookie)
 	http.Redirect(w, r, "/", http.StatusFound)
-	return
+	//return
 }
