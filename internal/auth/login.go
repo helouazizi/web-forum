@@ -21,7 +21,7 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 	}
 	if IsCookieSet(r, "token") {
 		w.WriteHeader(http.StatusNotFound)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Page Not Found hhhhh")
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "Page Not Found")
 		return
 	}
 	UserName := r.FormValue("userName")
@@ -31,43 +31,45 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		pages.All_Templates.ExecuteTemplate(w, "error.html", "Bad Request")
 		return
-
 	}
+
+	// lets check the valid data from user
 	var pasword string
 	var username string
-
 	err := database.Database.QueryRow("SELECT userName , userPassword  FROM users WHERE  username= $1 ", UserName).Scan(&username, &pasword)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			w.WriteHeader(http.StatusUnauthorized)
-			pages.All_Templates.ExecuteTemplate(w, "error.html", "user not exist") // should execute login page here for no rows err
+			pages.All_Templates.ExecuteTemplate(w, "sign_in.html", "Invalid Password or UserName") // should execute login page here for no rows err
 			return
 		}
 		w.WriteHeader(http.StatusInternalServerError)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", err)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "internal server error")
 		return
 
 	}
 	if err := bcrypt.CompareHashAndPassword([]byte(pasword), []byte(Password)); err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Invalid Password or username or exist")
+		pages.All_Templates.ExecuteTemplate(w, "sign_in.html", "Invalid Password or UserName")
 		return
 	}
+	// lets update the token
 	Token := uuid.New().String()
-	// statement, err := database.Database.Prepare("UPDATE users SET token = ? where userName = ? ")
-	// if err != nil {
-	// 	fmt.Printf("err in statement of the database: %v\n", err)
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	pages.All_Templates.ExecuteTemplate(w, "error.html", "Internal Server Error")
-	// 	return
-	// }
-	// _, err = statement.Exec(Token, username)
-	// if err != nil {
-	// 	fmt.Printf("err in the exec of database: %v\n", err)
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	pages.All_Templates.ExecuteTemplate(w, "error.html", "Internal Server Error")
-	// 	return
-	// }
+	query := "UPDATE users SET token = ? WHERE userName = ?"
+	res, err := database.Database.Exec(query, Token, username)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "internal server error")
+		return
+	}
+	rowsAffected, _ := res.RowsAffected()
+	// it this statement the user not exist
+	if rowsAffected == 0 {
+		w.WriteHeader(http.StatusUnauthorized)
+		pages.All_Templates.ExecuteTemplate(w, "sign_in.html", "Invalid Password or UserName")
+		return
+	}
+	// after all that set the token
 	cookie := &http.Cookie{
 		Name:   "token",
 		Value:  Token,
@@ -78,5 +80,4 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 	r.AddCookie(cookie)
 	log.Println(UserName, "logged in")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
-	return
 }
