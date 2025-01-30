@@ -53,7 +53,7 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 		pages.All_Templates.ExecuteTemplate(w, "sign_in.html", "Invalid Password or UserName")
 		return
 	}
-	// lets update the token
+	// lets update the soken
 	Token := uuid.New().String()
 	query := "UPDATE users SET token = ? WHERE userName = ?"
 	res, err := database.Database.Exec(query, Token, username)
