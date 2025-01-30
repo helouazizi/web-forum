@@ -9,6 +9,9 @@ aside {
   aside .btns {
     display: none;
   }
+  aside .small-add-post {
+    display: none;
+  }
 
   aside .sign-btns {
     background-color: #333;

@@ -70,11 +70,12 @@ main {
   header .profile .add-post {
     display: none;
   }
-  header .small-add-post {
+  aside .small-add-post {
     display: inline-block;
     position: absolute;
-    top: 117px;
+    top: 126px;
     right: 30px;
+    z-index: 5;
   }
   header .under-profile{
     text-align: start;
