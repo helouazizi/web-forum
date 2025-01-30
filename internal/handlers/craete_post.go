@@ -18,7 +18,7 @@ func Craete_Post(w http.ResponseWriter, r *http.Request) {
 	}
 	data := database.Fetch_Database(r)
 	pages.ExecuteTemplate(w, "createPost.html", data)
-	return
+	//return
 }
 
 func Submit_Post(w http.ResponseWriter, r *http.Request) {
@@ -53,5 +53,5 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 	}
 	data := database.Fetch_Database(r)
 	pages.ExecuteTemplate(w, "home.html", data)
-	return
+	//return
 }

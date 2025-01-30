@@ -48,7 +48,7 @@ func Sign_Up(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	Pagess.All_Templates.ExecuteTemplate(w, "sign_up.html", nil)
-	return
+	//return
 }
 
 func Sign_In(w http.ResponseWriter, r *http.Request) {
@@ -58,11 +58,11 @@ func Sign_In(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	Pagess.All_Templates.ExecuteTemplate(w, "sign_in.html", nil)
-	return
+	//return
 }
 
 func Serve_Static(w http.ResponseWriter, r *http.Request) {
 	fs := http.FileServer(http.Dir("./web/static"))
 	http.StripPrefix("/static/", fs).ServeHTTP(w, r)
-	return
+	//return
 }
