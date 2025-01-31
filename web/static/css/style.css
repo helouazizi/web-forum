@@ -119,6 +119,9 @@ main {
     display: block;
   }
   .post-container {
-    margin-top: -300px;
+    margin-top: 2%;
+  }
+  .post-container::-webkit-scrollbar {
+   display: none;
   }
 }
