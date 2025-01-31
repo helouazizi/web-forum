@@ -1,46 +1,58 @@
-
-/* create a table called "users" */
-CREATE TABLE IF NOT EXISTS  users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT ,
-    userName VARCHAR(50) NOT NULL , 
-    userEmail VARCHAR(100) NOT NULL ,
+/* USERS TABLE */
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userName VARCHAR(50) NOT NULL, 
+    userEmail VARCHAR(100) NOT NULL UNIQUE,
     userPassword VARCHAR(255) NOT NULL,
-    token VARCHAR(255) NOT NULL ,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+    token VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-/* create posts table*/
+/* POSTS TABLE */
 CREATE TABLE IF NOT EXISTS posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT ,
-    created_at  TEXT ,
-    user_id INT ,
-    title VARCHAR(255) NOT NULL ,
-    content TEXT NOT NULL ,
-    total_likes INT DEFAULT 0,
-    total_dislikes INT DEFAULT 0,
-    total_comments INT DEFAULT 0,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id INT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-/* craete comments table*/
+/* COMMENTS TABLE */
 CREATE TABLE IF NOT EXISTS comments (
-    id INTEGER PRIMARY KEY AUTOINCREMENT ,
-    post_id INT ,
-    user_id INT ,
-    total_likes INT DEFAULT 0,
-    total_dislikes INT DEFAULT 0,
-    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
-    content TEXT NOT NULL ,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    post_id INT,
+    user_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    content TEXT NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-/* create category table */
+/* CATEGORIES TABLE */
 CREATE TABLE IF NOT EXISTS categories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT ,
-    category VARCHAR(255) NOT NULL,
-    post_id INT ,
-    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category_name VARCHAR(255) NOT NULL UNIQUE
 );
 
--- todo: use triggers to automatically change states of reactions 
+/* POST-CATEGORIES JUNCTION TABLE */
+CREATE TABLE IF NOT EXISTS post_categories (
+    post_id INT,
+    category_id INT,
+    PRIMARY KEY (post_id, category_id),
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+);
+
+/* REACTIONS TABLE */
+CREATE TABLE IF NOT EXISTS reactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INT NOT NULL,
+    post_id INT DEFAULT NULL,
+    comment_id INT DEFAULT NULL,
+    reaction_type TEXT CHECK (reaction_type IN ('like', 'dislike')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE
+);
