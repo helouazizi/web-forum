@@ -1,12 +1,13 @@
 package handlers
 
 import (
+	"database/sql"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
 	"forum/internal/database"
-	"forum/internal/utils"
 )
 
 func Craete_Post(w http.ResponseWriter, r *http.Request) {
@@ -29,8 +30,11 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	r.ParseForm()
-	cookies, _ := r.Cookie("token")
-	user_Id, _ := utils.SelecRromDtabase("users", "id", cookies.Value)
+	cookies, err := r.Cookie("token")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	categories := r.Form["categorie"] ///////////////////////  be carefull
 	title := r.FormValue("postTitle")
 	content := r.FormValue("postContent")
@@ -43,15 +47,26 @@ func Submit_Post(w http.ResponseWriter, r *http.Request) {
 		pages.ExecuteTemplate(w, "error.html", "bad request")
 		return
 	}
+	var userID int
+	query1 := "SELECT id FROM users WHERE token = ? "
+	err = database.Database.QueryRow(query1, cookies.Value).Scan(&userID)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			log.Println("No user found for the given token")
+		} else {
+			log.Println("Database query error:", err)
+		}
+		return
+	}
 	// lets insert this data to our database
 	query := "INSERT INTO posts (user_id,title,content,created_at) VALUES (?,?,?,?)"
-	_, err := database.Database.Exec(query, user_Id, title, content, time)
+	_, err = database.Database.Exec(query, userID, title, content, time)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		pages.ExecuteTemplate(w, "error.html", "internal server error")
 		return
 	}
-	data := database.Fetch_Database(r)
-	pages.ExecuteTemplate(w, "home.html", data)
-	//return
+	//r.AddCookie(cookies)
+	http.Redirect(w, r, "/", http.StatusFound)
 }
