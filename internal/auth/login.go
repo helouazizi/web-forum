@@ -2,7 +2,6 @@ package auth
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 
 	"forum/internal/database"
@@ -77,7 +76,7 @@ func Log_in(w http.ResponseWriter, r *http.Request) {
 		Path:   "/",
 	}
 	http.SetCookie(w, cookie)
-	r.AddCookie(cookie)
-	log.Println(UserName, "logged in")
+	//r.AddCookie(cookie)
+	//log.Println(UserName, "logged in")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
