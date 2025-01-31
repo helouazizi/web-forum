@@ -9,8 +9,9 @@ type User struct {
 }
 
 type Data struct {
-	User  User
-	Posts []Post
+	User       User
+	Posts      []Post
+	Categories []Categorie
 }
 
 type Post struct {
