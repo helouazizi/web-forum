@@ -1,4 +1,26 @@
 /* Overall layout */
+
+.post-container {
+  max-height: 80dvh; /* Adjust the height as needed */
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding: 10px;
+  
+}
+
+/* Custom scrollbar for Webkit browsers */
+.post-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.post-container::-webkit-scrollbar-thumb {
+  background: #7c9277;
+  border-radius: 4px;
+}
+
+.post-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .post {
   width: 100%;
   max-width: 600px;
