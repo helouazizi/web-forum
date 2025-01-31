@@ -74,7 +74,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, cookie)
-	r.AddCookie(cookie)
+	//r.AddCookie(cookie)
 	http.Redirect(w, r, "/", http.StatusFound)
 	//return
 }
