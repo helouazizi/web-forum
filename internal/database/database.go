@@ -60,12 +60,11 @@ func Create_database() {
 	}
 	fmt.Println("data base creatd succesfully")
 }
-
 func Fetch_Database(r *http.Request) *models.Data {
-	// lets connect to our dtatbase
+	// Connect to the database
 	query := `
 		SELECT 
-			posts.title, posts.content, posts.total_likes, posts.total_dislikes, posts.created_at,
+			posts.id, posts.title, posts.content, posts.total_likes, posts.total_dislikes, posts.total_comments, posts.created_at,
 			users.userName
 		FROM 
 			posts
@@ -78,45 +77,57 @@ func Fetch_Database(r *http.Request) *models.Data {
 	`
 	rows, err := Database.Query(query)
 	if err != nil {
-		fmt.Println("Error executing query:", err)
-		log.Fatal("Error executing query:", err)
+		log.Println("Error executing query:", err)
+		return nil
 	}
 	defer rows.Close()
-	// lets iterate over rows and store them in our models
+
+	// Initialize data model
 	data := &models.Data{}
 
-	// lets check if the user have a token
-
-	if t, err := r.Cookie("token"); err == nil {
-		if t.Value != "" {
-			data.User.IsLoged = true
-		}
+	// Check if the user has a token
+	if t, err := r.Cookie("token"); err == nil && t.Value != "" {
+		data.User.IsLoged = true
 	}
-	// lets extract hus username
+
+	// Extract user information
 	userName := r.FormValue("userName")
 	Email := r.FormValue("userEmail")
 	if Email == "" {
-		// fmt.Println("email empty")
-		Database.QueryRow("SELECT userEmail FROM users WHERE userName = $1 ", userName).Scan(&Email)
+		Database.QueryRow("SELECT userEmail FROM users WHERE userName = ?", userName).Scan(&Email)
 	}
 
 	data.User.UserName = userName
 	data.User.UserEmail = Email
-	// fmt.Println(data.Userr.UserName, data.Userr.UserEmail, data.Userr.IsLoged, " after in data base ")
 
+	// Fetch posts
 	for rows.Next() {
-		post := &models.Post{}
+		post := models.Post{}
 		err := rows.Scan(
-			&post.PostTitle, &post.PostContent, &post.TotalLikes, &post.TotalDeslikes, &post.PostCreatedAt, &post.PostCreator,
+			&post.PostId, &post.PostTitle, &post.PostContent, &post.TotalLikes, &post.TotalDeslikes, &post.TotalComments, &post.PostCreatedAt, &post.PostCreator,
 		)
 		if err != nil {
-			log.Fatalf("Failed to scan row: %v", err)
+			log.Printf("Failed to scan row: %v", err)
+			continue
 		}
-		data.Posts = append(data.Posts, *post)
+
+		// Fetch categories for each post
+		categoryQuery := "SELECT category_name FROM categories INNER JOIN post_categories ON categories.id = post_categories.category_id WHERE post_categories.post_id = ?"
+		categoryRows, err := Database.Query(categoryQuery, post.PostId)
+		if err == nil {
+			for categoryRows.Next() {
+				var category models.Categorie
+				categoryRows.Scan(&category.CatergoryName)
+				post.Categories = append(post.Categories, category)
+			}
+			categoryRows.Close()
+		}
+
+		data.Posts = append(data.Posts, post)
 	}
 
 	if err := rows.Err(); err != nil {
-		log.Fatal(err)
+		log.Println("Error iterating rows:", err)
 	}
 
 	return data
