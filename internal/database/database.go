@@ -1,5 +1,3 @@
-// internal/database/database.go
-// internal/database/db.go
 package database
 
 import (
