@@ -13,7 +13,7 @@ import (
 
 	_ "github.com/mattn/go-sqlite3"
 )
-
+/// vghvhjgj adjfhbsjdbfjksdxkjgfk
 var Database *sql.DB
 
 func Create_database() {
