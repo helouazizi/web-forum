@@ -11,7 +11,7 @@ func LogOut(w http.ResponseWriter, r *http.Request) {
 	pages := handlers.Pagess
 	if r.Method != http.MethodGet {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method Not Allowed")
+		pages.All_Templates.ExecuteTemplate(w, "error.html", "405 Method Not Allowed")
 		return
 	}
 
@@ -32,6 +32,4 @@ func LogOut(w http.ResponseWriter, r *http.Request) {
 		pages.All_Templates.ExecuteTemplate(w, "error.html", "Not Found")
 		return
 	}
-	http.Redirect(w, r, "/", http.StatusFound)
-	return
 }
