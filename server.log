@@ -16,3 +16,6 @@
 2025/02/07 18:50:59 test logged in
 2025/02/07 18:51:06 A User logged out
 2025/02/07 18:51:08 2025-02-07T18:51:08+01:00 [Function: forum/internal/handlers.Serve_Files] [Line: 212] stat web/static/css/login.css: no such file or directory
+2025/02/07 19:19:02 2025-02-07T19:19:02+01:00 [Function: forum/internal/handlers.Serve_Files] [Line: 212] stat web/static/css/login.css: no such file or directory
+2025/02/07 19:19:05 test logged in
+2025/02/07 19:19:26 A User logged out
