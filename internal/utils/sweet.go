@@ -3,11 +3,11 @@ package utils
 
 import (
 	"database/sql"
-	"forum/internal/database"
-	"forum/pkg/logger"
 	"net/mail"
 	"regexp"
 	"strings"
+
+	"forum/internal/database"
 )
 
 func IsValidUsername(username string) bool {
@@ -15,6 +15,7 @@ func IsValidUsername(username string) bool {
 	match, _ := regexp.MatchString("^[a-zA-Z0-9_]{3,15}$", username) // we can add length like {3,15} and remove the +
 	return match && !isReservedUsername(username)
 }
+
 func IsValidEmail(email string) bool {
 	_, err := mail.ParseAddress(email)
 	return err == nil
@@ -22,7 +23,7 @@ func IsValidEmail(email string) bool {
 
 // Function to check if a username is reserved
 func isReservedUsername(username string) bool {
-	var reservedWords = []string{"admin", "root", "system", "superuser"}
+	reservedWords := []string{"admin", "root", "system", "superuser"}
 	for _, reserved := range reservedWords {
 		if strings.ToLower(username) == reserved {
 			return true
@@ -60,7 +61,7 @@ func IsExist(collumn0, collumn1, value string) (string, bool) {
 	var user, pass string
 	err := db.QueryRow("SELECT "+collumn0+collumn1+" FROM users WHERE  "+collumn0+"  = ?", value).Scan(&user, &pass)
 	if err != nil {
-		logger.LogWithDetails(err)
+		// logger.LogWithDetails(err)
 		if err == sql.ErrNoRows {
 			return pass, false
 		}
