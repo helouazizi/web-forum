@@ -1,11 +1,12 @@
 package middlewares
 
 import (
+	"net/http"
+	"time"
+
 	"forum/internal/auth"
 	"forum/internal/handlers"
 	"forum/internal/utils"
-	"net/http"
-	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -33,30 +34,28 @@ func Reg_Log_Middleware(next http.Handler) http.Handler {
 				pages.ExecuteTemplate(w, "register.html", "Username is invalid.")
 				return
 			}
-
-			if !utils.IsValidEmail(email) {
-				w.WriteHeader(http.StatusBadRequest)
-				pages.ExecuteTemplate(w, "register.html", "Email is invalid.")
-				return
-			}
-
-			// Validate password
-			if !utils.IsStrongPassword(password) {
-				w.WriteHeader(http.StatusBadRequest)
-				pages.ExecuteTemplate(w, "register.html", "Password is too weak.")
-				return
-			}
-
 			_, exist := utils.IsExist("userName", "", username)
 			if exist {
 				w.WriteHeader(http.StatusBadRequest)
 				pages.ExecuteTemplate(w, "register.html", "Username is already taken.")
 				return
 			}
+
+			if !utils.IsValidEmail(email) {
+				w.WriteHeader(http.StatusBadRequest)
+				pages.ExecuteTemplate(w, "register.html", "Email is invalid.")
+				return
+			}
 			_, exist = utils.IsExist("userEmail", "", email)
 			if exist {
 				w.WriteHeader(http.StatusBadRequest)
 				pages.ExecuteTemplate(w, "register.html", "Email is already taken.")
+				return
+			}
+			// Validate password
+			if !utils.IsStrongPassword(password) {
+				w.WriteHeader(http.StatusBadRequest)
+				pages.ExecuteTemplate(w, "register.html", "Password is too weak.")
 				return
 			}
 
