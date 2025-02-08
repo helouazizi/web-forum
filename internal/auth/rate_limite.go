@@ -20,7 +20,6 @@ func NewRateLimiter(limit int, resetTime time.Duration) *RateLimiter {
 	}
 }
 
-
 // Check if the IP exceeded the rate limit
 func (r *RateLimiter) CheckRateLimit(ip string) bool {
 	r.mu.Lock()
@@ -44,4 +43,3 @@ func (r *RateLimiter) CheckRateLimit(ip string) bool {
 	}()
 	return false // Allowed request
 }
-
