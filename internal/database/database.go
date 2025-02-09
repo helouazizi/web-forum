@@ -21,14 +21,18 @@ var Database *sql.DB
 
 func Create_database() {
 	var err error
-	Database, err = sql.Open("sqlite3", "./internal/database/forum.db")
+	db_path := os.Getenv("DB_PATH")
+	Database, err = sql.Open("sqlite3", db_path)
 	if err != nil {
+		logger.LogWithDetails(err)
 		log.Fatal(err)
 	}
 
 	// lets open the schema file to execute the sql commands inside it
-	schema, err := os.Open("./internal/database/schema.sql")
+	shema_path := os.Getenv("SCHEMA_PATH")
+	schema, err := os.Open(shema_path)
 	if err != nil {
+		logger.LogWithDetails(err)
 		log.Fatal(err)
 	}
 	defer schema.Close()
@@ -36,10 +40,7 @@ func Create_database() {
 	// now lets read the schema file using the bufio package
 	scanner := bufio.NewScanner(schema)
 	var sql_command string
-	lineIndex := 0
 	for scanner.Scan() {
-
-		lineIndex++
 		line := strings.TrimSpace(scanner.Text())
 
 		if strings.HasPrefix(line, "--") || strings.HasPrefix(line, "/*") || line == "" {
@@ -50,7 +51,8 @@ func Create_database() {
 		if strings.HasSuffix(sql_command, "; ") {
 			_, err = Database.Exec(sql_command)
 			if err != nil {
-				log.Fatal(err, " line hna :", lineIndex)
+				logger.LogWithDetails(err)
+				log.Fatal(err)
 			}
 			// free up the sql command
 			sql_command = ""
@@ -59,14 +61,13 @@ func Create_database() {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("data base creatd succesfully")
 }
 
 func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*models.Data, error) {
 	var finalQuery string
-	if userid > 0 && !liked{
-		finalQuery = fmt.Sprintf("%s WHERE users.id = %d ORDER BY posts.created_at DESC;", query, userid)
-	}else if userid > 0 && liked{
+	if userid > 0 && !liked {
+		finalQuery = fmt.Sprintf("%s WHERE users.id = %d ORDER  BY posts.created_at DESC;", query, userid)
+	} else if userid > 0 && liked {
 		finalQuery = fmt.Sprintf("%s WHERE  post_reaction.user_id = %d AND  post_reaction.reaction = 1", query, userid)
 	} else {
 		finalQuery = fmt.Sprintf("%s ORDER BY posts.created_at DESC", query)
