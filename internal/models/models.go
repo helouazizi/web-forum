@@ -1,16 +1,24 @@
 package models
 
 type User struct {
+	CurrentPath string
 	IsLoged   bool
 	UserName  string
 	UserEmail string
 	// Profile   string // about imges we can store them in databse as blob dont wory
 }
+type FormErrors struct {
+	FormError string
+	InvalidUserName string
+	InvalidEmail string
+	InvalidPassword string
+}
 
 type Data struct {
-	User       User
-	Posts      []Post
-	Categories []Categorie
+	User        User
+	Posts       []Post
+	Categories  []Categorie
+	FormErrors
 }
 
 type Post struct { /// after use your own envpreption
