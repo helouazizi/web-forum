@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      PORT: 8081
+      DB_PATH: ./internal/database/forum.db
+      SCHEMA_PATH: ./internal/database/schema.sql
+    volumes:
+      - ./internal/database/forum.db:/app/internal/database/forum.db
+      - ./internal/database/schema.sql:/app/internal/database/schema.sql
+    restart: always
