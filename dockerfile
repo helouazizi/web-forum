@@ -5,7 +5,6 @@ RUN apk add --no-cache go sqlite libc6-compat
 
 # Set working directory inside the container
 WORKDIR /app
-
 # Copy the Go modules files and download dependencies
 COPY go.mod go.sum ./
 RUN go mod download
