@@ -17,14 +17,23 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var Database *sql.DB
+type Database struct {
+	*sql.DB
+}
 
-func Create_database() {
-	var err error
-	db_path := os.Getenv("DB_PATH")
-	Database, err = sql.Open("sqlite3", db_path)
+func NewDatabase() (*Database, error) {
+	dbPath := os.Getenv("DB_PATH")
+	db, err := sql.Open("sqlite3", dbPath)
 	if err != nil {
 		logger.LogWithDetails(err)
+		return nil, err
+	}
+	return &Database{db}, nil
+}
+
+func Create_database() {
+	db, err := NewDatabase()
+	if err != nil {
 		log.Fatal(err)
 	}
 
@@ -36,20 +45,18 @@ func Create_database() {
 		log.Fatal(err)
 	}
 	defer schema.Close()
-
 	// now lets read the schema file using the bufio package
 	scanner := bufio.NewScanner(schema)
 	var sql_command string
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
-
 		if strings.HasPrefix(line, "--") || strings.HasPrefix(line, "/*") || line == "" {
 			continue
 		}
 		sql_command += line + " "
 		// lets execute the sql command
 		if strings.HasSuffix(sql_command, "; ") {
-			_, err = Database.Exec(sql_command)
+			_, err = db.Exec(sql_command)
 			if err != nil {
 				logger.LogWithDetails(err)
 				log.Fatal(err)
@@ -65,15 +72,20 @@ func Create_database() {
 
 func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*models.Data, error) {
 	var finalQuery string
-	if userid > 0 && !liked {
+	if userid > 0 && !liked { // posts of a single user
 		finalQuery = fmt.Sprintf("%s WHERE users.id = %d ORDER  BY posts.created_at DESC;", query, userid)
-	} else if userid > 0 && liked {
+	} else if userid > 0 && liked { // liked posts
 		finalQuery = fmt.Sprintf("%s WHERE  post_reaction.user_id = %d AND  post_reaction.reaction = 1", query, userid)
-	} else {
+	} else { // all posts
 		finalQuery = fmt.Sprintf("%s ORDER BY posts.created_at DESC", query)
 	}
 
-	stm, err := Database.Prepare(finalQuery)
+	db, err := NewDatabase()
+	if err != nil {
+		logger.LogWithDetails(err)
+	}
+	data := &models.Data{}
+	stm, err := db.Prepare(finalQuery)
 	if err != nil {
 		logger.LogWithDetails(err)
 		return nil, err
@@ -84,8 +96,6 @@ func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*mod
 		return nil, err
 	}
 	defer rows.Close()
-	// lets iterate over rows and store them in our models
-	data := &models.Data{}
 
 	// lets check if the user have a token
 	if t, err := r.Cookie("token"); err == nil {
@@ -97,7 +107,7 @@ func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*mod
 	userName := r.FormValue("userName")
 	Email := r.FormValue("userEmail")
 	if Email == "" {
-		stm, err := Database.Prepare("SELECT userEmail FROM users WHERE userName = ? ")
+		stm, err := db.Prepare("SELECT userEmail FROM users WHERE userName = ? ")
 		if err != nil {
 			logger.LogWithDetails(err)
 			return nil, err
@@ -118,7 +128,7 @@ func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*mod
 		}
 		// Fetch categories for the post
 		query := "SELECT category FROM categories WHERE post_id = ?"
-		stm, err := Database.Prepare(query)
+		stm, err := db.Prepare(query)
 		if err != nil {
 			logger.LogWithDetails(err)
 			return nil, err
@@ -147,7 +157,7 @@ func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*mod
 	}
 	/// lets fetch cetegories
 	query2 := `SELECT category FROM stoke_categories`
-	stm, err = Database.Prepare(query2)
+	stm, err = db.Prepare(query2)
 	if err != nil {
 		logger.LogWithDetails(err)
 		return nil, err
