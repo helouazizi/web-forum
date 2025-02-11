@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"forum/internal"
 	"forum/internal/auth"
 	"forum/internal/database"
 	"forum/internal/handlers"
@@ -24,7 +25,7 @@ func main() {
 	// lets load the configuration
 	configuration := config.LoadConfig()
 	database.Create_database()
-	handlers.ParseTemplates()
+	internal.ParseTemplates()
 
 	// server static files
 	http.HandleFunc("/web/", handlers.Serve_Files)
@@ -42,12 +43,10 @@ func main() {
 	http.HandleFunc("/auth/logout", auth.LogOut)
 
 	// routes for forms actions
-	http.HandleFunc("/post", handlers.Post)
+	// http.HandleFunc("/post", handlers.Post)
 	http.HandleFunc("/filter_posts", handlers.FilterPosts)
 	http.Handle("/api/add_post", middlewares.Auth_Middleware(http.HandlerFunc(handlers.AddPost)))
 	http.Handle("/api/react_to_post", middlewares.Auth_Middleware(http.HandlerFunc(handlers.PostReactions)))
-	http.Handle("/api/add_post_comment", middlewares.Auth_Middleware(http.HandlerFunc(handlers.AddPostComment)))
-	http.Handle("/api/react_to_comment", middlewares.Auth_Middleware(http.HandlerFunc(handlers.LikeComment)))
 
 	fmt.Printf("Server starting on port: %d >>> http://localhost:%d\n", configuration.Port, configuration.Port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", configuration.Port), nil))
