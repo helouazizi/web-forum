@@ -29,6 +29,7 @@ func (mux *Mine_ServMux) Mine_Handlfunc(pattern string, handler func(http.Respon
 func (mux *Mine_ServMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// lets range over our routs
 	if handler, ok := mux.Routers[r.URL.Path]; ok {
+		fmt.Println(r.URL.Path)
 		handler.ServeHTTP(w, r)
 		return
 	}
@@ -38,7 +39,7 @@ func (mux *Mine_ServMux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func init() {
 	var loger Logger
 	var err error
-	loger.LogFile, err = os.OpenFile("server.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+	loger.LogFile, err = os.OpenFile("server.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o666)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,6 +51,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hello from server\n")
 	w.Write([]byte("this is a public site\n"))
 }
+
 func secure_handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hello from server\n")
 	w.Write([]byte("this privete site\n"))
@@ -70,7 +72,6 @@ func LoginMidlleware(next http.Handler) http.Handler {
 		// now call the next hamdel in the chain
 		next.ServeHTTP(w, r)
 	})
-
 }
 
 func validToken(token string) bool {
@@ -81,10 +82,11 @@ func main() {
 	var loger Logger
 	defer loger.LogFile.Close()
 	// Create a new HTTP multiplexer (router)
-	mux := http.DefaultServeMux
-	//mux.Mine_Handlfunc("/", handler) // or
-	mux.HandleFunc("/", handler)
-	mux.Handle("/secure", LoginMidlleware(http.HandlerFunc(secure_handler)))
+	mux := &Mine_ServMux{}
+	// mux := http.DefaultServeMux
+	mux.Mine_Handlfunc("/", handler)
+	// mux.HandleFunc("/", handler)
+	// mux.Handle("/secure", LoginMidlleware(http.HandlerFunc(secure_handler)))
 	fmt.Println("server is running on port 8080 ... http://localhost:8080")
 	// Start the server with the logging middleware
 	if err := http.ListenAndServe(":8080", mux); err != nil {
