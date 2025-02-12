@@ -80,7 +80,7 @@ func Fetch_Database(r *http.Request, query string, userid int, liked bool) (*mod
 	if userid > 0 && !liked {
 		finalQuery = fmt.Sprintf("%s WHERE users.id = %d ORDER BY posts.created_at DESC;", query, userid)
 	} else if userid > 0 && liked {
-		finalQuery = fmt.Sprintf("%s WHERE  post_reaction.user_id = %d AND  post_reaction.reaction = 1", query, userid)
+		finalQuery = fmt.Sprintf("%s WHERE  post_reaction.user_id = %d AND  post_reaction. reaction_id = 1", query, userid)
 	} else { // all posts
 		finalQuery = fmt.Sprintf("%s ORDER BY posts.created_at DESC", query)
 	}
@@ -290,7 +290,7 @@ func Triggers() error {
 		AND OLD.reaction_id=-1
 		AND NEW.reaction_id = 0;
 		END;`
-		trigger_total_likes_posts_insert := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_likes_posts_insert
+	trigger_total_likes_posts_insert := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_likes_posts_insert
 		AFTER INSERT ON post_reaction
 		 FOR EACH ROW
 		 BEGIN
@@ -300,7 +300,7 @@ func Triggers() error {
 		 WHERE posts.id = NEW.post_id 
 		 AND NEW.reaction_id = 1 ;
 		 END;`
-		 trigger_total_likes_posts_update := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_likes_posts_update
+	trigger_total_likes_posts_update := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_likes_posts_update
 		 AFTER UPDATE ON post_reaction
 		 FOR EACH ROW
 		 BEGIN
@@ -332,7 +332,7 @@ func Triggers() error {
 		 AND OLD.reaction_id=1
 		 AND NEW.reaction_id = 0;
 		 END;`
-		 trigger_total_dislikes_posts_insert := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_dislikes_posts_insert
+	trigger_total_dislikes_posts_insert := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_dislikes_posts_insert
 		 AFTER INSERT ON post_reaction
 		  FOR EACH ROW
 		  BEGIN
@@ -342,7 +342,7 @@ func Triggers() error {
 		  WHERE posts.id = NEW.post_id
 		  AND NEW.reaction_id = -1 ;
 		  END;`
-		  trigger_total_dislikes_posts_update := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_dislikes_posts_update
+	trigger_total_dislikes_posts_update := `CREATE TRIGGER IF NOT EXISTS increment_or_decrement_total_dislikes_posts_update
 		  AFTER UPDATE ON post_reaction
 		  FOR EACH ROW
 		  BEGIN
@@ -376,7 +376,7 @@ func Triggers() error {
 	triggers := []string{
 		trigger_total_comments, trigger_total_likes_comments_insert,
 		trigger_total_likes_comments_update, trigger_total_dislikes_comments_insert,
-		trigger_total_dislikes_comments_update,trigger_total_likes_posts_insert, trigger_total_likes_posts_update, trigger_total_dislikes_posts_insert,trigger_total_dislikes_posts_update,
+		trigger_total_dislikes_comments_update, trigger_total_likes_posts_insert, trigger_total_likes_posts_update, trigger_total_dislikes_posts_insert, trigger_total_dislikes_posts_update,
 	}
 	for _, query := range triggers {
 		statement, err := db.Prepare(query)
