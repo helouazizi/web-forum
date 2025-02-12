@@ -1,30 +1,71 @@
 package auth
 
 import (
-	"forum/internal/handlers"
 	"net/http"
+
+	"forum/internal/database"
+	"forum/internal/models"
+	"forum/internal/utils"
+	"forum/pkg/logger"
 )
 
-func Log_out(w http.ResponseWriter, r *http.Request) {
-	pages := handlers.Pagess
+func LogOut(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "Method Not Allowed")
+		utils.RenderTemplate(w, "error.html", models.MethodNotAllowed, http.StatusMethodNotAllowed)
 		return
 	}
+
 	// lets check in first that is already have a session
-	if !IsCookieSet(r, "token") {
-		w.WriteHeader(http.StatusNotFound)
-		pages.All_Templates.ExecuteTemplate(w, "error.html", "page not found")
+	if utils.IsCookieSet(r, "token") {
+		http.SetCookie(w, &http.Cookie{
+			Name:   "token", // name of the cookie
+			Value:  "",      // clear the cookie value
+			MaxAge: -1,      // set expiration time to a time in the past
+			Path:   "/",     // scope of the cookie
+		})
+		db, err := database.NewDatabase()
+		if err != nil {
+			logger.LogWithDetails(err)
+			utils.RenderTemplate(w, "error.html", models.InternalServerError, http.StatusInternalServerError)
+			return
+		}
+		defer db.Close()
+		// get the user id by token
+		token, err := r.Cookie("token")
+		if err != nil {
+			logger.LogWithDetails(err)
+			utils.RenderTemplate(w, "error.html", models.InternalServerError, http.StatusInternalServerError)
+			return
+		}
+		stm, err := db.Prepare("SELECT userName FROM users WHERE token = ?")
+		if err != nil {
+			logger.LogWithDetails(err)
+			utils.RenderTemplate(w, "error.html", models.InternalServerError, http.StatusInternalServerError)
+			return
+		}
+		var username string
+		err = stm.QueryRow(token.Value).Scan(&username)
+		if err != nil {
+			logger.LogWithDetails(err)
+			utils.RenderTemplate(w, "error.html", models.InternalServerError, http.StatusInternalServerError)
+			return
+		}
+		stm, err = db.Prepare("UPDATE users SET token = ? , token_created_at = ? , expiration_date = ? where userName = ?")
+		if err != nil {
+			logger.LogWithDetails(err)
+			utils.RenderTemplate(w, "error.html", models.InternalServerError, http.StatusInternalServerError)
+			return
+		}
+
+		_, err = stm.Exec("", "", "", username)
+		if err != nil {
+			logger.LogWithDetails(err)
+			utils.RenderTemplate(w, "error.html", models.InternalServerError, http.StatusInternalServerError)
+			return
+		}
+	} else {
+		utils.RenderTemplate(w, "error.html", models.PageNotFound, http.StatusNotFound)
 		return
 	}
-	http.SetCookie(w, &http.Cookie{
-		Name:   "token", // name of the cookie
-		Value:  "",      // clear the cookie value
-		MaxAge: -1,      // set expiration time to a time in the past
-		Path:   "/",     // scope of the cookie
-		//HttpOnly: true,    // prevent JavaScript access
-		//Secure:   true,    // ensure cookie is only sent over HTTPS
-	})
 	http.Redirect(w, r, "/", http.StatusFound)
 }
